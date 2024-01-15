@@ -30,35 +30,7 @@ public class DAO {
     ResultSet rs = null;
 
     //Register customer
-    public Customer addCustomer(String paymentID, String username, String password, String fullName, String phoneNumber,
-            String address, String email, String cOTP) {
-        String query = "INSERT INTO [dbo].[Customer]\n"
-                + "           ([PayID]\n"
-                + "           ,[Username]\n"
-                + "           ,[Password]\n"
-                + "           ,[Fullname]\n"
-                + "           ,[Phonenumber]\n"
-                + "           ,[Address]\n"
-                + "           ,[Email]\n"
-                + "           ,[COTP])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?)";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, paymentID);
-            ps.setString(2, username);
-            ps.setString(3, password);
-            ps.setString(4, fullName);
-            ps.setString(5, phoneNumber);
-            ps.setString(6, address);
-            ps.setString(8, email);
-            ps.setString(9, cOTP);
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return null;
-    }
+    
 
     //Send OTP
     public void sendOTPEmail(String subjectMail, String toEmail, String otp) {
@@ -93,31 +65,5 @@ public class DAO {
     }
     
     //Check Customer Exist
-    public Customer CheckCustomerExist(String Email) {
-        String query = "select * from Customer where [Email] = ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, Email);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return new Customer(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getBoolean(5),
-                        rs.getString(6),
-                        rs.getDate(7),
-                        rs.getDouble(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getString(11),
-                        rs.getInt(12),
-                        rs.getString(13)
-                );
-            }
-        } catch (Exception e) {
-        }
-        return null;
-    }
+    
 }
