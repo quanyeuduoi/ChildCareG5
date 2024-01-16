@@ -10,7 +10,6 @@ package model;
  */
 public class Customer {
     int customerID;
-    int paymentID;
     String password;
     String fullName;
     String phoneNumber;
@@ -22,9 +21,8 @@ public class Customer {
         
     }
 
-    public Customer(int customerID, int paymentID, String username, String password, String fullName, String phoneNumber, String address, String email, String cOTP) {
+    public Customer(int customerID, String password, String fullName, String phoneNumber, String address, String email, String cOTP) {
         this.customerID = customerID;
-        this.paymentID = paymentID;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -39,14 +37,6 @@ public class Customer {
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
-    }
-
-    public int getPaymentID() {
-        return paymentID;
-    }
-
-    public void setPaymentID(int paymentID) {
-        this.paymentID = paymentID;
     }
 
     public String getPassword() {
