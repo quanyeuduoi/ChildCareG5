@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="dao.DAO"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,6 +57,31 @@
 
     <!-- Vendor JS Files -->
     <script src="assets/js/login.js"></script>
+    <script>
+    function sendOTP() {
+        var email = document.getElementById("email").value;
+        <%
+            String emailToCheck = request.getParameter("email");
+            DAO dao = new DAO();
+            Customer customer = dao.CheckCustomerExist(emailToCheck);
+
+            if (customer != null) {
+        %>
+                alert("Email already exists!");
+        <%
+            } else {
+        %>
+                // Call other functions 
+                var subject = "Here is your OTP.";
+                var otp = generateOTP();
+                updatcOTPinDatabase(emailToCheck, otp);
+                sendOTPEmail(subject, emailToCheck, otp);
+        <%
+            }
+        %>
+    }
+</script>
+
     <style>
         .email-container {
             display: flex;
@@ -73,6 +99,7 @@
             align-items: center;
         }
     </style>
+    
 
 
 </body>

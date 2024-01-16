@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
+import java.util.Random;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -30,30 +31,26 @@ public class DAO {
     ResultSet rs = null;
 
     //Register customer
-    public Customer addCustomer(String paymentID, String username, String password, String fullName, String phoneNumber,
-            String address, String email, String cOTP) {
+    public Customer addCustomer(String email, String password, String fullName, String phoneNumber,
+            String address, String cOTP) {
         String query = "INSERT INTO [dbo].[Customer]\n"
-                + "           ([PayID]\n"
-                + "           ,[Username]\n"
+                + "           ([Email]\n"
                 + "           ,[Password]\n"
                 + "           ,[Fullname]\n"
                 + "           ,[Phonenumber]\n"
                 + "           ,[Address]\n"
-                + "           ,[Email]\n"
                 + "           ,[COTP])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setString(1, paymentID);
-            ps.setString(2, username);
-            ps.setString(3, password);
-            ps.setString(4, fullName);
-            ps.setString(5, phoneNumber);
-            ps.setString(6, address);
-            ps.setString(8, email);
-            ps.setString(9, cOTP);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ps.setString(3, fullName);
+            ps.setString(4, phoneNumber);
+            ps.setString(5, address);
+            ps.setString(6, cOTP);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -91,7 +88,7 @@ public class DAO {
             e.printStackTrace();
         }
     }
-    
+
     //Check Customer Exist
     public Customer CheckCustomerExist(String Email) {
         String query = "select * from Customer where [Email] = ?";
@@ -114,4 +111,75 @@ public class DAO {
         }
         return null;
     }
+
+    //Get random OTP
+    public String generateOTP() {
+        int otpLength = 8;
+        String characters = "0123456789";
+        StringBuilder otp = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < otpLength; i++) {
+            char randomChar = characters.charAt(random.nextInt(characters.length()));
+            otp.append(randomChar);
+        }
+        return otp.toString();
+    }
+
+    //Check the customer OTP
+    public boolean isCOTPValid(String cOTP) {
+        String query = "SELECT COUNT(*) FROM Customer WHERE [cOTP] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cOTP);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0; // Trả về true nếu cOTP hợp lệ
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in a finally block to ensure they are always closed
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    //Update cOTP of Customer
+    public void updatcOTPinDatabase(String email, String otp) {
+        String query = "UPDATE Customer SET COTP = ? WHERE Email = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, otp);
+            ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng các tài nguyên
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 }
