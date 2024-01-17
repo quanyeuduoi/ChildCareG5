@@ -53,6 +53,7 @@ public class DAO {
             ps.setString(6, cOTP);
             ps.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

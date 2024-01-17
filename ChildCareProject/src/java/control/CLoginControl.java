@@ -4,8 +4,7 @@
  */
 package control;
 
-import context.DBContext;
-import dao.DAO;
+import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Connection;
 import model.Customer;
 
 /**
  *
  * @author Dell
  */
-@WebServlet(name = "CRegisterControl", urlPatterns = {"/register"})
-public class CRegisterControl extends HttpServlet {
+@WebServlet(name = "CLoginControl", urlPatterns = {"/login"})
+public class CLoginControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,37 +33,20 @@ public class CRegisterControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String rePassword = request.getParameter("rePassword");
-        String address = null;
-        String phoneNumber = null;
-        String cOTP = null;
-        
-        DAO dao = new DAO();
-        if (!password.equals(rePassword)) {
-            // Display an error message or handle the error
-            request.setAttribute("message", "Password and confirm password do not match.");
+        request.setAttribute("email", email);
+        request.setAttribute("password", password);
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.login(email, password);
+        if (customer == null) {
+            request.setAttribute("message", "Invalid email or password");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
             return;
+        } else {
+            request.getSession().setAttribute("cus", customer);
         }
-
-        Customer cus = dao.CheckCustomerExist(email);
-        if(cus!=null){
-            request.setAttribute("message", "Register failed. Emal existed.");
-            request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-//        boolean isCOTPValid = dao.isCOTPValid(cOTP);
-//        if (!isCOTPValid) {
-//        request.setAttribute("message", "Your OTP is incorrect.");
-//        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-    }else {
-        dao.addCustomer(email, password, fullName, phoneNumber, address, cOTP);
-        request.setAttribute("message", "Register successfully.");
-        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-    }
-
-        
+        request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,6 +76,7 @@ public class CRegisterControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
