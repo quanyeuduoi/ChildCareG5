@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="dao.DAO"%>
+<%@page import="model.Customer" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,16 +17,18 @@
     <h2>Welcome to Child Care</h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form action="register" method="post">
                 <h1>Create Account</h1>
                 <input type="text" name="fullName" placeholder="Name" />
-                <div class="email-container">
+                <input type="text" name="email" placeholder="Your email" />
+<!--                    Send OTP button-->
+<!--                <div class="email-container">
                     <input name="email" type="email" id="email" placeholder="Email" />
                     <button class="small-button" onclick="sendOTP()">Send OTP</button>
-                </div>
+                </div>-->
                 <input type="password" name="password" placeholder="Password" />
-                <input type="rePassword" name="rePassword" placeholder="Re-Password" />
-                <input type="otp" name="cOTP" placeholder="Enter OTP here" />
+                <input type="password" name="rePassword" placeholder="Re-Password" />
+                <input type="hidden" name="cOTP" placeholder="Enter OTP here" />
                 <button>Sign Up</button>
             </form>
         </div>
@@ -72,8 +75,8 @@
             } else {
         %>
                 // Call other functions 
-                var subject = "Here is your OTP.";
-                var otp = generateOTP();
+                String subject = "Here is your OTP.";
+                String otp = generateOTP();
                 updatcOTPinDatabase(emailToCheck, otp);
                 sendOTPEmail(subject, emailToCheck, otp);
         <%

@@ -58,7 +58,7 @@ public class DAO {
     }
 
     //Send OTP
-    public void sendOTPEmail(String subjectMail, String toEmail, String otp) {
+    public static void sendOTPEmail(String subjectMail, String toEmail, String otp) {
         final String fromEmail = "pchildcareg5@gmail.com";
         final String password = "eesx dgaj vcox vrjw";
 
@@ -113,7 +113,7 @@ public class DAO {
     }
 
     //Get random OTP
-    public String generateOTP() {
+    public static String generateOTP() {
         int otpLength = 8;
         String characters = "0123456789";
         StringBuilder otp = new StringBuilder();
@@ -181,5 +181,10 @@ public class DAO {
             }
         }
     }
-
+    public static void main(String[] args) {
+        String subject = "Test";
+        String email = "lquankhai11@gmail.com";
+        String otp = generateOTP();
+        sendOTPEmail(subject, email, otp);
+    }
 }

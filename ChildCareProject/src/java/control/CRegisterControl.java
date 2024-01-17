@@ -48,10 +48,13 @@ public class CRegisterControl extends HttpServlet {
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
             return;
         }
-        boolean isCOTPValid = dao.isCOTPValid(cOTP);
-        if (!isCOTPValid) {
-        request.setAttribute("message", "Your OTP is incorrect.");
-        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
+        Customer cus = dao.CheckCustomerExist(email);
+        if(cus!=null){
+            request.setAttribute("message", "Register failed. Emal existed.");
+//        boolean isCOTPValid = dao.isCOTPValid(cOTP);
+//        if (!isCOTPValid) {
+//        request.setAttribute("message", "Your OTP is incorrect.");
+//        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
     }else {
         dao.addCustomer(email, password, fullName, phoneNumber, address, cOTP);
         request.setAttribute("message", "Register successfully.");
