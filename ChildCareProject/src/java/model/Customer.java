@@ -10,26 +10,28 @@ package model;
  */
 public class Customer {
     int customerID;
+    String email;
     String password;
     String fullName;
     String phoneNumber;
     String address;
-    String email;
     String cOTP;
     
     public Customer(){
         
     }
 
-    public Customer(int customerID, String password, String fullName, String phoneNumber, String address, String email, String cOTP) {
+    public Customer(int customerID, String email, String password, String fullName, String phoneNumber, String address, String cOTP) {
         this.customerID = customerID;
+        this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.email = email;
         this.cOTP = cOTP;
     }
+
+
 
     public int getCustomerID() {
         return customerID;
