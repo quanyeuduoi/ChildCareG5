@@ -99,13 +99,13 @@ public class DAO {
             ps.setString(1, Email);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Customer(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7)
+                return new Customer(rs.getInt("customerID"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("fullName"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("cOTP")
                 );
             }
         } catch (Exception e) {
