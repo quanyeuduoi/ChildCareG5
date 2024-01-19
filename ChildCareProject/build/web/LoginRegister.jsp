@@ -92,7 +92,7 @@
 
         // Check if there is a popup message in request attribute and show it
     var popupMessage = "<%= request.getAttribute("message") %>";
-        if (popupMessage !== null && popupMessage !== "") {
+        if (popupMessage !== null) {
             showMessage(popupMessage);
         }
     </script>
