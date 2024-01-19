@@ -19,19 +19,41 @@ public class CustomerDAO {
     ResultSet rs = null;
      public void forGetPass(String password,String email) {
         try {
-            String strSQL="update Products "
-                    + "set Password="+password+" "
-                    + "where Email="+email+"";
+            String strSQL="UPDATE dbo.[Customer] SET [Password] = ? WHERE [Email] = ? ";
+                    
             conn = new DBContext().getConnection();
-            ps=conn.prepareStatement(strSQL);
+            ps = conn.prepareStatement(strSQL);
             ps.setString(1, password);
-            ps.setDouble(2, Double.parseDouble(email));
-            
+            ps.setString(2, email);
             rs = ps.executeQuery();
             
         } catch (Exception e) {
             System.out.println("UpdateProduct:"+e.getMessage());
            
         }
+    }
+     
+     public Customer login(String Email, String Password) {
+        try {
+            String query = "SELECT *\n"
+                    + "  FROM Customer where [Email] = ? and [Password] = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, Email);
+            ps.setString(2, Password);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+        } catch (Exception ex) {
+        }
+        return null;
     }
 }

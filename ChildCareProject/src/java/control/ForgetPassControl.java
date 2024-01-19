@@ -82,6 +82,7 @@ public class ForgetPassControl extends HttpServlet {
              c.forGetPass(pass, email);
              String sc = "Reset Password succesfully!";
               request.setAttribute("sc", sc);
+              request.getRequestDispatcher("ForgetPassChangePass.jsp").forward(request, response);
          }else{
              String err = "Re-password must is the same with password";
              request.setAttribute("err", err);
