@@ -10,14 +10,15 @@ package model;
  */
 public class Payment {
     int payID,serviceID,price;
-    String servicename;
+    String servicename,status;
     public Payment() {
     }
 
-    public Payment( String servicename, int price) {
+    public Payment( String servicename, int price,String status) {
        
         this.servicename = servicename;
         this.price = price;
+        this.status = status;
     }
 
     public int getPayID() {
@@ -50,6 +51,14 @@ public class Payment {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
     
     

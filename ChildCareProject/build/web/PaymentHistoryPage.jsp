@@ -138,6 +138,7 @@
                         <td style="width: 20%"><b>Fullname</b></td>
                         <td style="width: 20%"><b>Service</b></td>
                         <td style="width: 20%"><b>Price</b></td>
+                        <td style="width: 20%"><b>Status</b></td>
                     </tr>
                     <c:forEach items="${data}" var="item">
                         <tr>
@@ -145,6 +146,7 @@
                             <td><%=name%></td>
                             <td>${item.getServicename()}</td>
                             <td>${item.getPrice()}$</td>
+                            <td>${item.getStatus()}</td>
                             
                             
 

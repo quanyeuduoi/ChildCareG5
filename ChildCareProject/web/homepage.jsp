@@ -73,7 +73,7 @@
                                 <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
                                 <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="department1.jsp">Pay money </a></li>
+                                <li><a href="PaymentControl?mod=$1">Chose your payment method </a></li>
                                 <li><a href="PaymentControl">Payment history</a></li>
                                 
                             </ul>
@@ -118,18 +118,18 @@
                                 <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
                                 <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="LoginRegister.jsp">Pay money </a></li>
+                                <li><a href="LoginRegister.jsp">Chose your payment method </a></li>
                                 <li><a href="LoginRegister.jsp">Payment history</a></li>
                                 
                             </ul>
                         </li>
                                 <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        <li><a href="department1.jsp">Department 1</a></li>
-                                        <li><a href="department1.jsp">Department 2</a></li>
-                                        <li><a href="department1.jsp">Department 3</a></li>
-                                        <li><a href="department1.jsp">Department 4</a></li>
-                                        <li><a href="department1.jsp">Department 5</a></li>
+                                        <li><a href="LoginRegister.jsp">Department 1</a></li>
+                                        <li><a href="LoginRegister.jsp">Department 2</a></li>
+                                        <li><a href="LoginRegister.jsp">Department 3</a></li>
+                                        <li><a href="LoginRegister.jsp">Department 4</a></li>
+                                        <li><a href="LoginRegister.jsp">Department 5</a></li>
                                     </ul>
                                 </li>
 
