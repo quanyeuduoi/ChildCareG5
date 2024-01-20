@@ -33,12 +33,12 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+             <form action="login" method="post">
                 <h1>Sign in</h1>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <input type="email" name="email" value="${requestScope.email}" placeholder="Email" />
+                <input type="password" name="password" value="${requestScope.password}" placeholder="Password" />
                 <a href="ForgetPassControl">Forgot your password?</a>
-                <button>Sign In</button>
+                <button tyoe="submit">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">

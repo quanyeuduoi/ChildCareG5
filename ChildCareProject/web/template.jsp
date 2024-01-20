@@ -45,12 +45,7 @@
   ======================================================== -->
 </head>
 
-<body><%
-     String err="";
-       
-           if(request.getAttribute("err")!=null){
-          err = (String)request.getAttribute("err");
-          }%>
+<body>
 
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -113,7 +108,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Confirm your email</h2>
+          <h2>Inner Page</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Inner Page</li>
@@ -125,17 +120,11 @@
 
     <section class="inner-page">
       <div class="container">
-        <p>
+       
           <div class="form-container sign-up-container">
-            <form action="ForgetPassControl" method="post">
-                
-                <input style="margin-bottom: 10px" type="text" name="email" placeholder="Your email" /><br>
-                <input style="margin-bottom: 10px" type="hidden" name="cm" value="1" />
-                <input style="margin-bottom: 10px" type="hidden" name="cOTP" placeholder="Enter OTP here" />
-                <button>Confirm</button><%=err%>
-            </form>
+           enter here
         </div>
-        </p>
+        
       </div>
     </section>
 

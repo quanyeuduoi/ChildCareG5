@@ -113,7 +113,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Inner Page</h2>
+          <h2>Confirm your email</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Inner Page</li>
@@ -128,7 +128,7 @@
         <p>
           <div class="form-container sign-up-container">
             <form action="ForgetPassControl" method="post">
-                <h1>Confirm your email</h1>
+                
                 <input style="margin-bottom: 10px" type="text" name="email" placeholder="Your email" /><br>
                 <input style="margin-bottom: 10px" type="hidden" name="cm" value="1" />
                 <input style="margin-bottom: 10px" type="hidden" name="cOTP" placeholder="Enter OTP here" />

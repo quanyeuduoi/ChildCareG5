@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class PaymentHistoryPage_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -84,7 +84,14 @@ public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.H
       out.write("  ======================================================== -->\r\n");
       out.write("</head>\r\n");
       out.write("\r\n");
-      out.write("<body>\r\n");
+      out.write("<body>");
+
+        String cusID;
+           if(request.getAttribute("cusID")!=null){
+          cusID = (String)request.getAttribute("cusID");
+          }
+        
+      out.write("\r\n");
       out.write("\r\n");
       out.write("  <!-- ======= Top Bar ======= -->\r\n");
       out.write("  <div id=\"topbar\" class=\"d-flex align-items-center fixed-top\">\r\n");
@@ -107,33 +114,38 @@ public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.H
       out.write("      <!-- <h1 class=\"logo me-auto\"><a href=\"index.html\">Medicio</a></h1> -->\r\n");
       out.write("\r\n");
       out.write("      <nav id=\"navbar\" class=\"navbar order-last order-lg-0\">\r\n");
-      out.write("        <ul>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto \" href=\"#hero\">Home</a></li>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto\" href=\"#about\">About</a></li>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto\" href=\"#services\">Services</a></li>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto\" href=\"#departments\">Departments</a></li>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto\" href=\"#doctors\">Doctors</a></li>\r\n");
-      out.write("          <li class=\"dropdown\"><a href=\"#\"><span>Drop Down</span> <i class=\"bi bi-chevron-down\"></i></a>\r\n");
-      out.write("            <ul>\r\n");
-      out.write("              <li><a href=\"#\">Drop Down 1</a></li>\r\n");
-      out.write("              <li class=\"dropdown\"><a href=\"#\"><span>Deep Drop Down</span> <i class=\"bi bi-chevron-right\"></i></a>\r\n");
-      out.write("                <ul>\r\n");
-      out.write("                  <li><a href=\"#\">Deep Drop Down 1</a></li>\r\n");
-      out.write("                  <li><a href=\"#\">Deep Drop Down 2</a></li>\r\n");
-      out.write("                  <li><a href=\"#\">Deep Drop Down 3</a></li>\r\n");
-      out.write("                  <li><a href=\"#\">Deep Drop Down 4</a></li>\r\n");
-      out.write("                  <li><a href=\"#\">Deep Drop Down 5</a></li>\r\n");
-      out.write("                </ul>\r\n");
-      out.write("              </li>\r\n");
-      out.write("              <li><a href=\"#\">Drop Down 2</a></li>\r\n");
-      out.write("              <li><a href=\"#\">Drop Down 3</a></li>\r\n");
-      out.write("              <li><a href=\"#\">Drop Down 4</a></li>\r\n");
-      out.write("            </ul>\r\n");
-      out.write("          </li>\r\n");
-      out.write("          <li><a class=\"nav-link scrollto\" href=\"#contact\">Contact</a></li>\r\n");
-      out.write("        </ul>\r\n");
-      out.write("        <i class=\"bi bi-list mobile-nav-toggle\"></i>\r\n");
-      out.write("      </nav><!-- .navbar -->\r\n");
+      out.write("                    <ul>\r\n");
+      out.write("                        <li><a class=\"nav-link scrollto \" href=\"homepage.jsp\">Home</a></li>\r\n");
+      out.write("                        <li><a class=\"nav-link scrollto \" href=\"homepage.jsp\">Ordered history</a></li>\r\n");
+      out.write("                        <li><a class=\"nav-link scrollto\" href=\"doctor.jsp\">Doctors</a></li>\r\n");
+      out.write("                        <li class=\"dropdown\"><a href=\"#\"><span>Payment</span> <i class=\"bi bi-chevron-down\"></i></a>\r\n");
+      out.write("                            <ul>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Pay money </a></li>\r\n");
+      out.write("                                <li><a href=\"PaymentHistoryPage.jsp\">Payment history</a></li>\r\n");
+      out.write("                                \r\n");
+      out.write("                            </ul>\r\n");
+      out.write("                        </li>\r\n");
+      out.write("                        <li class=\"dropdown\"><a href=\"#\"><span>Service</span> <i class=\"bi bi-chevron-down\"></i></a>\r\n");
+      out.write("                            <ul>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Department 1</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Department 2</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Department 3</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Department 4</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Department 5</a></li>\r\n");
+      out.write("                            </ul>\r\n");
+      out.write("                        </li>\r\n");
+      out.write("                        <li class=\"dropdown\"><a href=\"#\"><span>Profile</span> <i class=\"bi bi-chevron-down\"></i></a>\r\n");
+      out.write("                            <ul>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Profile 1</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Profile 2</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Profile 3</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Profile 4</a></li>\r\n");
+      out.write("                                <li><a href=\"department1.jsp\">Profile 5</a></li>\r\n");
+      out.write("                            </ul>\r\n");
+      out.write("                        </li>\r\n");
+      out.write("                    </ul>\r\n");
+      out.write("                    <i class=\"bi bi-list mobile-nav-toggle\"></i>\r\n");
+      out.write("                </nav><!-- .navbar -->\r\n");
       out.write("\r\n");
       out.write("      <a href=\"#appointment\" class=\"appointment-btn scrollto\"><span class=\"d-none d-md-inline\">Make an</span> Appointment</a>\r\n");
       out.write("\r\n");
@@ -159,11 +171,17 @@ public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.H
       out.write("\r\n");
       out.write("    <section class=\"inner-page\">\r\n");
       out.write("      <div class=\"container\">\r\n");
-      out.write("       \r\n");
+      out.write("        <p>\r\n");
       out.write("          <div class=\"form-container sign-up-container\">\r\n");
-      out.write("           enter here\r\n");
+      out.write("            <form action=\"ForgetPassControl\" method=\"post\">\r\n");
+      out.write("                <h1>Confirm your email</h1>\r\n");
+      out.write("                <input style=\"margin-bottom: 10px\" type=\"text\" name=\"email\" placeholder=\"Your email\" /><br>\r\n");
+      out.write("                <input style=\"margin-bottom: 10px\" type=\"hidden\" name=\"cm\" value=\"1\" />\r\n");
+      out.write("                <input style=\"margin-bottom: 10px\" type=\"hidden\" name=\"cOTP\" placeholder=\"Enter OTP here\" />\r\n");
+      out.write("                <button>Confirm</button>\r\n");
+      out.write("            </form>\r\n");
       out.write("        </div>\r\n");
-      out.write("        \r\n");
+      out.write("        </p>\r\n");
       out.write("      </div>\r\n");
       out.write("    </section>\r\n");
       out.write("\r\n");

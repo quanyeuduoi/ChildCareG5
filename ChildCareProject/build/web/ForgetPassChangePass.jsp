@@ -126,7 +126,7 @@ String sc="";
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Inner Page</h2>
+          <h2>Retake password</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Inner Page</li>
@@ -141,7 +141,7 @@ String sc="";
         <p>
           <div class="form-container sign-up-container">
             <form action="ForgetPassControl" method="post">
-                <h1>Retake password</h1>
+                
                 <input style="margin-bottom: 10px" type="hidden" name="email" value="<%=email%>" /><br>
                 <input style="margin-bottom: 10px" type="password" name="password" placeholder="Password" /><br>
                 <input style="margin-bottom: 10px" type="password" name="rePassword" placeholder="Re-Password" /><br>

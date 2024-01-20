@@ -3,7 +3,7 @@
     Created on : Jan 13, 2024, 12:14:54 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,13 +45,13 @@
   ======================================================== -->
 </head>
 
-<body><%
-     String err="";
+<body>
+<%
+ String name="";
        
-           if(request.getAttribute("err")!=null){
-          err = (String)request.getAttribute("err");
+           if(request.getAttribute("name")!=null){
+          name = (String)request.getAttribute("name");
           }%>
-
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
@@ -73,33 +73,38 @@
       <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto " href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
-          <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+                    <ul>
+                        <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                        <li><a class="nav-link scrollto " href="homepage.jsp">Ordered history</a></li>
+                        <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                        <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="department1.jsp">Pay money </a></li>
+                                <li><a href="PaymentHistoryPage.jsp">Payment history</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="department1.jsp">Department 1</a></li>
+                                <li><a href="department1.jsp">Department 2</a></li>
+                                <li><a href="department1.jsp">Department 3</a></li>
+                                <li><a href="department1.jsp">Department 4</a></li>
+                                <li><a href="department1.jsp">Department 5</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="department1.jsp">Profile 1</a></li>
+                                <li><a href="department1.jsp">Profile 2</a></li>
+                                <li><a href="department1.jsp">Profile 3</a></li>
+                                <li><a href="department1.jsp">Profile 4</a></li>
+                                <li><a href="department1.jsp">Profile 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
 
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
 
@@ -113,7 +118,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Confirm your email</h2>
+          <h2>Payment History </h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Inner Page</li>
@@ -127,13 +132,26 @@
       <div class="container">
         <p>
           <div class="form-container sign-up-container">
-            <form action="ForgetPassControl" method="post">
-                
-                <input style="margin-bottom: 10px" type="text" name="email" placeholder="Your email" /><br>
-                <input style="margin-bottom: 10px" type="hidden" name="cm" value="1" />
-                <input style="margin-bottom: 10px" type="hidden" name="cOTP" placeholder="Enter OTP here" />
-                <button>Confirm</button><%=err%>
-            </form>
+            <table    style="width: 100%; justify-content: center">
+                    <tr>
+                        
+                        <td style="width: 20%"><b>Fullname</b></td>
+                        <td style="width: 20%"><b>Service</b></td>
+                        <td style="width: 20%"><b>Price</b></td>
+                    </tr>
+                    <c:forEach items="${data}" var="item">
+                        <tr>
+
+                            <td><%=name%></td>
+                            <td>${item.getServicename()}</td>
+                            <td>${item.getPrice()}$</td>
+                            
+                            
+
+                        </tr>
+                    </c:forEach>
+
+                </table>
         </div>
         </p>
       </div>

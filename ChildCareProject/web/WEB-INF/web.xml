@@ -8,6 +8,10 @@
         <servlet-name>ForgetPassControl</servlet-name>
         <servlet-class>control.ForgetPassControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentControl</servlet-name>
+        <servlet-class>control.PaymentControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ForgetPassControl</servlet-name>
         <url-pattern>/ForgetPassControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentControl</servlet-name>
+        <url-pattern>/PaymentControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

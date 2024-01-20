@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class template_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -159,11 +159,11 @@ public final class FogetPassConfirmEmail_jsp extends org.apache.jasper.runtime.H
       out.write("\r\n");
       out.write("    <section class=\"inner-page\">\r\n");
       out.write("      <div class=\"container\">\r\n");
-      out.write("       \r\n");
+      out.write("        <p>\r\n");
       out.write("          <div class=\"form-container sign-up-container\">\r\n");
-      out.write("           enter here\r\n");
+      out.write("            Input here\r\n");
       out.write("        </div>\r\n");
-      out.write("        \r\n");
+      out.write("        </p>\r\n");
       out.write("      </div>\r\n");
       out.write("    </section>\r\n");
       out.write("\r\n");
