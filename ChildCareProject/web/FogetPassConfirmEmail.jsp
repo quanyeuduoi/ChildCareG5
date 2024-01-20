@@ -45,7 +45,12 @@
   ======================================================== -->
 </head>
 
-<body>
+<body><%
+     String err="";
+       
+           if(request.getAttribute("err")!=null){
+          err = (String)request.getAttribute("err");
+          }%>
 
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -127,7 +132,7 @@
                 <input style="margin-bottom: 10px" type="text" name="email" placeholder="Your email" /><br>
                 <input style="margin-bottom: 10px" type="hidden" name="cm" value="1" />
                 <input style="margin-bottom: 10px" type="hidden" name="cOTP" placeholder="Enter OTP here" />
-                <button>Confirm</button>
+                <button>Confirm</button><%=err%>
             </form>
         </div>
         </p>

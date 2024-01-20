@@ -56,4 +56,22 @@ public class CustomerDAO {
         }
         return null;
     }
+     
+      public boolean forGetPassCheckMail(String email) {
+        try {
+            String strSQL="select * from Customer where Email = ? ";
+                    
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(strSQL);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return true;
+        }
+        } catch (Exception e) {
+            System.out.println("UpdateProduct:"+e.getMessage());
+           
+        }
+        return false;
+    }
 }

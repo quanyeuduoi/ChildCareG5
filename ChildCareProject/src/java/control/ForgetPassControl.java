@@ -71,7 +71,14 @@ public class ForgetPassControl extends HttpServlet {
         request.setAttribute("email", email);
         String cm = request.getParameter("cm");
         if(cm != null) {
-            request.getRequestDispatcher("ForgetPassChangePass.jsp").forward(request, response);
+            if(c.forGetPassCheckMail(email)){
+                request.getRequestDispatcher("ForgetPassChangePass.jsp").forward(request, response);
+            }else{
+                String err = "Wrong email!";
+                request.setAttribute("err", err);
+                request.getRequestDispatcher("FogetPassConfirmEmail.jsp").forward(request, response);
+            }
+            
         }
         
             String pass = request.getParameter("password");
