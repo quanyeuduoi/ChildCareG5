@@ -5,6 +5,7 @@
 
 package control;
 
+import dao.GuestDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Doctor;
 
 /**
  *
@@ -30,18 +33,11 @@ public class SearchDoctorControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchDoctorControl</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchDoctorControl at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        String txtFullnameSearch = request.getParameter("txtFullnameSearch");
+        GuestDAO gDAO = new GuestDAO();
+        List<Doctor> dlist = gDAO.searchDoctorByName(txtFullnameSearch);
+        request.setAttribute("dlist",dlist);
+        request.getRequestDispatcher("doctor.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

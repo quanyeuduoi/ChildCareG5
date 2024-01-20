@@ -122,9 +122,9 @@
                             <!-- Search Bar and Button -->
                             <div class="row">
                                 <div class="col-lg-6 offset-lg-3">
-                                    <form action="search.do" method="GET">
+                                    <form action="searchDoctor" method="GET">
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Search Doctors" name="searchText">
+                                            <input type="text" class="form-control" placeholder="Input Doctor's name you want to find here." value="${txtFullnameSearch}" name="txtFullnameSearch">
                                             <button class="appointment-btn scrollto" type="submit">
                                                 <span class="d-none d-md-inline"><i class="bi bi-search"></i></span>
                                             </button>
@@ -132,7 +132,6 @@
                                     </form>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <c:forEach items = "${dlist}" var="o" >         
                                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
