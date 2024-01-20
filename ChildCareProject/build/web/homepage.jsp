@@ -66,7 +66,7 @@
                     <ul>
                         <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
                         <li><a class="nav-link scrollto" href="#about">Order History</a></li>
-                        <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                        <li><a class="nav-link scrollto" href="doctor">Doctors</a></li>
                         <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="department1.jsp">Department 1</a></li>

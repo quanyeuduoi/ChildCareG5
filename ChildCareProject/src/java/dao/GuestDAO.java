@@ -32,11 +32,29 @@ public class GuestDAO {
                 dlist.add(new Doctor(rs.getInt("docID"),
                         rs.getString("fullName"),
                         rs.getInt("age"),
-                        rs.getString("department")));
+                        rs.getInt("departmentID")));
             }
         } catch (Exception e) {
         }
         return dlist;
     }
+
+     public static void main(String[] args) {
+        GuestDAO guestDAO = new GuestDAO();
+
+        // Retrieve the list of doctors
+        List<Doctor> doctorList = guestDAO.getAllDoctor();
+
+        // Display the information for each doctor
+        for (Doctor doctor : doctorList) {
+            System.out.println("Doctor ID: " + doctor.getDocID());
+            System.out.println("Full Name: " + doctor.getFullName());
+            System.out.println("Age: " + doctor.getAge());
+            System.out.println("Department ID: " + doctor.getDepartmentID());
+            System.out.println("------------------------------------");
+        }
+    }
+
+
  
 }

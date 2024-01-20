@@ -12,16 +12,16 @@ public class Doctor {
     int docID;
     String fullName;
     int age;
-    String department;
+    int departmentID;
 
     public Doctor(){
         
     }
-    public Doctor(int docID, String fullName, int age, String department) {
+    public Doctor(int docID, String fullName, int age, int departmentID) {
         this.docID = docID;
         this.fullName = fullName;
         this.age = age;
-        this.department = department;
+        this.departmentID = departmentID;
     }
 
     public int getDocID() {
@@ -48,13 +48,14 @@ public class Doctor {
         this.age = age;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getDepartmentID() {
+        return departmentID;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
     }
-    
+
+
     
 }

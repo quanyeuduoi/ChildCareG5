@@ -3,7 +3,7 @@
     Created on : Jan 12, 2024, 11:18:13 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +120,7 @@
                             </div>
 
                             <div class="row">
-
+                                <c:forEach items = "${dlist}" var="o" >         
                                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                                     <div class="member" data-aos="fade-up" data-aos-delay="100">
                                         <div class="member-img">
@@ -133,66 +133,12 @@
                                             </div>
                                         </div>
                                         <div class="member-info">
-                                            <h4>Tờ Ninh</h4>
-                                            <span>Mọi bệnh ở trên đời, ta đều không chữa được</span>
+                                            <h4>${o.fullName}</h4>
+                                            <span>Độ tuổi ${o.age}</span>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                    <div class="member" data-aos="fade-up" data-aos-delay="200">
-                                        <div class="member-img">
-                                            <img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt="">
-                                            <div class="social">
-                                                <a href=""><i class="bi bi-twitter"></i></a>
-                                                <a href=""><i class="bi bi-facebook"></i></a>
-                                                <a href=""><i class="bi bi-instagram"></i></a>
-                                                <a href=""><i class="bi bi-linkedin"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="member-info">
-                                            <h4>Tuấn Saker</h4>
-                                            <span>Sống là do tôi cứu, chết là do bạn ngu</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                    <div class="member" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="member-img">
-                                            <img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt="">
-                                            <div class="social">
-                                                <a href=""><i class="bi bi-twitter"></i></a>
-                                                <a href=""><i class="bi bi-facebook"></i></a>
-                                                <a href=""><i class="bi bi-instagram"></i></a>
-                                                <a href=""><i class="bi bi-linkedin"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="member-info">
-                                            <h4>Huy Diamond</h4>
-                                            <span>Lúc có tiền thì tôi có mặt, lúc bạn oẳng thì đừng hỏi tôi đâu</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                    <div class="member" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="member-img">
-                                            <img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt="">
-                                            <div class="social">
-                                                <a href=""><i class="bi bi-twitter"></i></a>
-                                                <a href=""><i class="bi bi-facebook"></i></a>
-                                                <a href=""><i class="bi bi-instagram"></i></a>
-                                                <a href=""><i class="bi bi-linkedin"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="member-info">
-                                            <h4>Khải ERROR</h4>
-                                            <span>Ba năm phẫu thuật trong giang hồ, chết thì vô số, mồ mả thì bao la</span>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                </c:forEach>
                             </div>
 
                         </div>
