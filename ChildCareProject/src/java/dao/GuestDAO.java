@@ -21,12 +21,33 @@ public class GuestDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
     
+    //Get list doctor from database
     public List<Doctor> getAllDoctor() {
         List<Doctor> dlist = new ArrayList<>();
         String query = "select * from Doctor";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dlist.add(new Doctor(rs.getInt("docID"),
+                        rs.getString("fullName"),
+                        rs.getInt("age"),
+                        rs.getInt("departmentID")));
+            }
+        } catch (Exception e) {
+        }
+        return dlist;
+    }
+    
+    //Search doctor by name
+    public List<Doctor> searchDoctorByName(String txtFullnameSearch) {
+        List<Doctor> dlist = new ArrayList<>();
+        String query = "select*from Doctor where [Fullname] like ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,"%"+ txtFullnameSearch +"%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 dlist.add(new Doctor(rs.getInt("docID"),

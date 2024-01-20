@@ -24,6 +24,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
         <!-- Vendor CSS Files -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
         <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
         <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
         <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -118,26 +119,39 @@
                                 <h2>Doctors</h2>
                                 <p>Tứ đại hào kiệt lăn lội quấy động giang hồ đã qua nhiều năm. Kẻ chết thì vô số còn kẻ sống thì chỉ đếm trên đầu ngón tay</p>
                             </div>
+                            <!-- Search Bar and Button -->
+                            <div class="row">
+                                <div class="col-lg-6 offset-lg-3">
+                                    <form action="search.do" method="GET">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Search Doctors" name="searchText">
+                                            <button class="appointment-btn scrollto" type="submit">
+                                                <span class="d-none d-md-inline"><i class="bi bi-search"></i></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <c:forEach items = "${dlist}" var="o" >         
-                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                    <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                        <div class="member-img">
-                                            <img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="">
-                                            <div class="social">
-                                                <a href=""><i class="bi bi-twitter"></i></a>
-                                                <a href=""><i class="bi bi-facebook"></i></a>
-                                                <a href=""><i class="bi bi-instagram"></i></a>
-                                                <a href=""><i class="bi bi-linkedin"></i></a>
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="member-img">
+                                                <img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="">
+                                                <div class="social">
+                                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>${o.fullName}</h4>
+                                                <span>Độ tuổi ${o.age}</span>
                                             </div>
                                         </div>
-                                        <div class="member-info">
-                                            <h4>${o.fullName}</h4>
-                                            <span>Độ tuổi ${o.age}</span>
-                                        </div>
                                     </div>
-                                </div>
                                 </c:forEach>
                             </div>
 
