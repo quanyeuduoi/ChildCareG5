@@ -7,6 +7,7 @@ package control;
 
 import dao.DAO;
 import dao.PostDAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -69,7 +70,9 @@ public class PostControl extends HttpServlet {
         request.setAttribute("index", index);
         request.setAttribute("postList", postList);
         request.setAttribute("endP", endPage);
-        request.getRequestDispatcher("post.jsp").forward(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("post.jsp");
+        requestDispatcher.forward(request, response);
+//        request.getRequestDispatcher("post.jsp").forward(request, response);
         
     } 
 
@@ -83,7 +86,12 @@ public class PostControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String searchText = request.getParameter("searchText");
+        String indexPage = request.getParameter("index");
+        int index = Integer.parseInt(indexPage); // get the index page want to see
+        PostDAO dao = new PostDAO();
+        ArrayList<Post> postList = dao.findPostByName(searchText,index);
+        
     }
 
     /** 

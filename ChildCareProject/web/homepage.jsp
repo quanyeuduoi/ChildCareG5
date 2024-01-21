@@ -62,6 +62,7 @@
                     <div class="container d-flex align-items-center">
 
                         <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
@@ -103,6 +104,7 @@
                         <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+                        
 
                         <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
@@ -130,7 +132,7 @@
             </c:otherwise>
         </c:choose>
 
-        
+
 
         <!-- ======= Hero Section ======= -->
         <section id="hero">

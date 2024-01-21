@@ -98,4 +98,9 @@ public class PostDAO {
         }
         return null;
     }
+
+
+    public ArrayList<Post> findPostByName(String searchText, int index) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

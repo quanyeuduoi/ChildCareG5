@@ -724,6 +724,16 @@
                         <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+                        <div>
+                            <form action="post?index=1" method="post">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search Post" name="searchText">
+                                    <button class="appointment-btn scrollto" type="submit">
+                                        <span class="d-none d-md-inline"><i class="bi bi-search"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
                         <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
@@ -759,8 +769,20 @@
                 <!-- ======= Header ======= -->
                 <header id="header" class="fixed-top">
                     <div class="container d-flex align-items-center">
-
                         <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+
+                        <div>
+                            <form action="search.do" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search Post" name="searchText">
+                                    <button class="appointment-btn scrollto" type="submit">
+                                        <span class="d-none d-md-inline"><i class="bi bi-search"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                            
+                        
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
