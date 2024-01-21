@@ -25,10 +25,16 @@
 =======
             <file>file:/D:/ProjectChildCare/ChildCareProject/src/java/context/DBContext.java</file>
             <file>file:/D:/ProjectChildCare/ChildCareProject/src/java/dao/DAO.java</file>
+            <file>file:/D:/ProjectChildCare/ChildCareProject/web/homepage.jsp</file>
             <file>file:/D:/ProjectChildCare/ChildCareProject/web/department1.jsp</file>
             <file>file:/D:/ProjectChildCare/ChildCareProject/src/java/control/CRegisterControl.java</file>
             <file>file:/D:/ProjectChildCare/ChildCareProject/web/LoginRegister.jsp</file>
             <file>file:/D:/ProjectChildCare/ChildCareProject/web/assets/js/login.js</file>
+<<<<<<< HEAD
+            <file>file:/D:/ProjectChildCare/ChildCareProject/src/java/model/Customer.java</file>
+            <file>file:/D:/ProjectChildCare/ChildCareProject/src/java/dao/CustomerDAO.java</file>
+=======
+>>>>>>> origin/main
 >>>>>>> origin/main
         </group>
     </open-files>

@@ -10,11 +10,11 @@ package model;
  */
 public class Customer {
     int customerID;
+    String email;
     String password;
     String fullName;
     String phoneNumber;
     String address;
-    String email;
     String cOTP;
     
     public Customer(){
@@ -26,8 +26,14 @@ public class Customer {
         this.customerID = customerID;
         this.email = email;
 =======
+<<<<<<< HEAD
+    public Customer(int customerID, String email, String password, String fullName, String phoneNumber, String address, String cOTP) {
+        this.customerID = customerID;
+        this.email = email;
+=======
     public Customer(int customerID, String password, String fullName, String phoneNumber, String address, String email, String cOTP) {
         this.customerID = customerID;
+>>>>>>> origin/main
 >>>>>>> origin/main
         this.password = password;
         this.fullName = fullName;
@@ -35,10 +41,15 @@ public class Customer {
         this.address = address;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
         this.email = email;
+>>>>>>> origin/main
 >>>>>>> origin/main
         this.cOTP = cOTP;
     }
+
+
 
     public int getCustomerID() {
         return customerID;

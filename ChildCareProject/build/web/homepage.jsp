@@ -63,10 +63,19 @@
 
                         <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
 
+<<<<<<< HEAD
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">Order History</a></li>
+                        <li><a class="nav-link scrollto" href="doctor">Doctors</a></li>
+                        <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+=======
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
                         <nav id="navbar" class="navbar order-last order-lg-0">
+>>>>>>> origin/main
                             <ul>
                                 <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
                                 <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
