@@ -3,7 +3,7 @@
     Created on : Jan 12, 2024, 11:18:13 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,37 +59,81 @@
             </div>
         </div>
 
-        <!-- ======= Header ======= -->
-        <header id="header" class="fixed-top">
-            <div class="container d-flex align-items-center">
+        <c:choose>
+            <c:when test="${sessionScope.cus ne null}">
+                <!-- ======= Header ======= -->
+                <header id="header" class="fixed-top">
+                    <div class="container d-flex align-items-center">
 
-                <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+                        <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
-                <nav id="navbar" class="navbar order-last order-lg-0">
-                    <ul>
-                        <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">Order History</a></li>
-                        <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
-                        <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                        <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
-                                <li><a href="department1.jsp">Department 1</a></li>
-                                <li><a href="department1.jsp">Department 2</a></li>
-                                <li><a href="department1.jsp">Department 3</a></li>
-                                <li><a href="department1.jsp">Department 4</a></li>
-                                <li><a href="department1.jsp">Department 5</a></li>
+                                <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                                <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
+                                <li><a class="nav-link scrollto" href="#about">Order History</a></li>
+                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="department1.jsp">Department 1</a></li>
+                                        <li><a href="department1.jsp">Department 2</a></li>
+                                        <li><a href="department1.jsp">Department 3</a></li>
+                                        <li><a href="department1.jsp">Department 4</a></li>
+                                        <li><a href="department1.jsp">Department 5</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"><span>${cus.getFullName()}</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="userDetail?email=${cus.getEmail()}">My Account</a></li>
+                                        <li><a href="logout">Log out</a></li>
+                                    </ul>
+                                </li>
+
                             </ul>
-                        </li>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
 
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav><!-- .navbar -->
 
-                <a href="LoginRegister.jsp" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</span></a>
+                    </div>
+                </header><!-- End Header -->
+            </c:when>
+            <c:otherwise>
+                <!-- ======= Header ======= -->
+                <header id="header" class="fixed-top">
+                    <div class="container d-flex align-items-center">
 
-            </div>
-        </header><!-- End Header -->
+                        <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+
+                        <nav id="navbar" class="navbar order-last order-lg-0">
+                            <ul>
+                                <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                                <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
+                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="department1.jsp">Department 1</a></li>
+                                        <li><a href="department1.jsp">Department 2</a></li>
+                                        <li><a href="department1.jsp">Department 3</a></li>
+                                        <li><a href="department1.jsp">Department 4</a></li>
+                                        <li><a href="department1.jsp">Department 5</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
+
+                        <a href="LoginRegister.jsp" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</span></a>
+
+                    </div>
+                </header><!-- End Header -->
+            </c:otherwise>
+        </c:choose>
+
 
         <main id="main">
 
@@ -98,7 +142,7 @@
                 <div class="container">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Inner Page</h2>
+                        <h2>Doctor</h2>
                         <ol>
                             <li><a href="homepage.jsp">Home</a></li>
                             <li>Doctor</li>

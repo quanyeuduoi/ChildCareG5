@@ -46,6 +46,10 @@ public class CLoginControl extends HttpServlet {
         } else {
             request.getSession().setAttribute("cus", customer);
         }
+<<<<<<< HEAD
+        
+=======
+>>>>>>> origin/main
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 
