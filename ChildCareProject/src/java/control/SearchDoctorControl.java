@@ -38,6 +38,7 @@ public class SearchDoctorControl extends HttpServlet {
         List<Doctor> dlist = gDAO.searchDoctorByName(txtFullnameSearch);
         request.setAttribute("dlist",dlist);
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
