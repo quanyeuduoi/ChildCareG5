@@ -44,6 +44,7 @@ public class CustomerDAO {
         }
         return null;
     }
+<<<<<<< HEAD
     //Edit profile
     public boolean editProfile(String email, String phone, String address, String fullName){
         try {
@@ -63,4 +64,6 @@ public class CustomerDAO {
             return false;
         }
     }
+=======
+>>>>>>> origin/main
 }
