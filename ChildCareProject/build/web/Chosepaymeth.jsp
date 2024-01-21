@@ -3,7 +3,7 @@
     Created on : Jan 13, 2024, 12:14:54 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,12 @@
 </head>
 
 <body>
-
+<%
+ String name="";
+       
+           if(request.getAttribute("name")!=null){
+          name = (String)request.getAttribute("name");
+          }%>
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
@@ -60,41 +65,49 @@
   </div>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
+                <header id="header" class="fixed-top">
+                    <div class="container d-flex align-items-center">
 
-      <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+                        <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto " href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
-          <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+                        <nav id="navbar" class="navbar order-last order-lg-0">
+                            <ul>
+                                <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                                <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
+                                <li><a class="nav-link scrollto" href="#about">Order History</a></li>
+                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="PaymentControl?mod=$1">Chose your payment method </a></li>
+                                <li><a href="PaymentControl">Payment history</a></li>
+                                
+                            </ul>
+                        </li>
+                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="department1.jsp">Department 1</a></li>
+                                        <li><a href="department1.jsp">Department 2</a></li>
+                                        <li><a href="department1.jsp">Department 3</a></li>
+                                        <li><a href="department1.jsp">Department 4</a></li>
+                                        <li><a href="department1.jsp">Department 5</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"><span>${cus.getFullName()}</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="userDetail?email=${cus.getEmail()}">My Account</a></li>
+                                        <li><a href="logout">Log out</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
+
+
+                    </div>
+                </header><!-- End Header -->
 
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
 
@@ -108,7 +121,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Chose Payment Method</h2>
+          <h2>All service you have not paid </h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li>Inner Page</li>
@@ -120,11 +133,29 @@
 
     <section class="inner-page">
       <div class="container">
-       
+        <p>
           <div class="form-container sign-up-container">
-           List all service you order which you have not paid
+            <table    style="width: 100%; justify-content: center">
+                    <tr>
+                        
+                        <td style="width: 20%"><b>Fullname</b></td>
+                        <td style="width: 20%"><b>Service</b></td>
+                        <td style="width: 20%"><b>Price</b></td>
+                        <td style="width: 20%"><b>Status</b></td>
+                    </tr>
+                    <c:forEach items="${data1}" var="item">
+                        <tr>
+                            <td><%=name%></td>
+                            <td>${item.getServicename()}</td>
+                            <td>${item.getPrice()}$</td>
+                            <td>${item.getStatus()}</td>
+                            <td><a href="PaymentControl?ac=1&id=${item.getPayID()}">Pay</a></td>
+                        </tr>
+                    </c:forEach>
+
+                </table>
         </div>
-        
+        </p>
       </div>
     </section>
 

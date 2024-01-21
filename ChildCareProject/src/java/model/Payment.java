@@ -9,13 +9,22 @@ package model;
  * @author VINH NINH
  */
 public class Payment {
-    int payID,serviceID,price;
-    String servicename,status;
+
+    int payID, serviceID, price;
+    String servicename, status;
+
     public Payment() {
     }
 
-    public Payment( String servicename, int price,String status) {
-       
+    public Payment(int payID, String servicename, int price, String status) {
+        this.payID = payID;
+        this.servicename = servicename;
+        this.price = price;
+        this.status = status;
+    }
+
+    public Payment(String servicename, int price, String status) {
+
         this.servicename = servicename;
         this.price = price;
         this.status = status;
@@ -60,7 +69,5 @@ public class Payment {
     public String getStatus() {
         return status;
     }
-    
-    
-    
+
 }
