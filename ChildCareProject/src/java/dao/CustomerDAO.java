@@ -97,4 +97,10 @@ public class CustomerDAO {
             System.out.println(e);
         }
     }
+	public boolean validatePassword(String password) {
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
+        Pattern pattern = Pattern.compile(passwordRegex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 }
