@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -59,7 +61,7 @@ public class DAO {
     }
 
     //Send OTP
-    public static void sendOTPEmail(String subjectMail, String toEmail, String otp) {
+    public void sendOTPEmail(String subjectMail, String toEmail, String otp) {
         final String fromEmail = "pchildcareg5@gmail.com";
         final String password = "eesx dgaj vcox vrjw";
 
@@ -114,7 +116,7 @@ public class DAO {
     }
 
     //Get random OTP
-    public static String generateOTP() {
+    public String generateOTP() {
         int otpLength = 8;
         String characters = "0123456789";
         StringBuilder otp = new StringBuilder();
@@ -182,10 +184,13 @@ public class DAO {
             }
         }
     }
-    public static void main(String[] args) {
-        String subject = "Test";
-        String email = "lquankhai11@gmail.com";
-        String otp = generateOTP();
-        sendOTPEmail(subject, email, otp);
+    
+    //CHeck validation password
+    public boolean validatePassword(String password) {
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
+        Pattern pattern = Pattern.compile(passwordRegex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
+
 }
