@@ -70,7 +70,7 @@
                                 <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
                                 <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
                                 <li><a class="nav-link scrollto" href="#about">Order History</a></li>
-                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li><a class="nav-link scrollto" href="doctor">Doctors</a></li>
                                 <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="PaymentControl?mod=$1">Chose your payment method </a></li>
@@ -78,18 +78,17 @@
                                 
                             </ul>
                         </li>
-                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                <li class="dropdown"><a href="departmentDetail?index=1"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        <li><a href="department1.jsp">Department 1</a></li>
-                                        <li><a href="department1.jsp">Department 2</a></li>
-                                        <li><a href="department1.jsp">Department 3</a></li>
-                                        <li><a href="department1.jsp">Department 4</a></li>
-                                        <li><a href="department1.jsp">Department 5</a></li>
+                                        <c:forEach items="${sessionScope.departmentList}" var="d">
+                                            <li><a href="department1.jsp">${d.departmentName}</a></li>
+                                        </c:forEach>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#"><span>${cus.getFullName()}</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
                                         <li><a href="userDetail?email=${cus.getEmail()}">My Account</a></li>
+                                        <li><a href="change">Change Password</a></li>
                                         <li><a href="logout">Log out</a></li>
                                     </ul>
                                 </li>
@@ -115,7 +114,7 @@
                             <ul>
                                 <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
                                 <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
-                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li><a class="nav-link scrollto" href="doctor">Doctors</a></li>
                                 <li class="dropdown"><a href="#"><span>Payment</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="LoginRegister.jsp">Chose your payment method </a></li>
@@ -123,13 +122,11 @@
                                 
                             </ul>
                         </li>
-                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                <li class="dropdown"><a href="departmentDetail?index=1"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        <li><a href="LoginRegister.jsp">Department 1</a></li>
-                                        <li><a href="LoginRegister.jsp">Department 2</a></li>
-                                        <li><a href="LoginRegister.jsp">Department 3</a></li>
-                                        <li><a href="LoginRegister.jsp">Department 4</a></li>
-                                        <li><a href="LoginRegister.jsp">Department 5</a></li>
+                                        <c:forEach items="${sessionScope.departmentList}" var="d">
+                                            <li><a href="department1.jsp">${d.departmentName}</a></li>
+                                        </c:forEach>
                                     </ul>
                                 </li>
 

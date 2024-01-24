@@ -4,6 +4,7 @@
  */
 package control;
 
+import context.DBContext;
 import dao.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
 import model.Customer;
 
 /**
@@ -39,30 +42,45 @@ public class CRegisterControl extends HttpServlet {
         String rePassword = request.getParameter("rePassword");
         String address = null;
         String phoneNumber = null;
-        String cOTP = null;
-        
+        String cOTP = request.getParameter("cOTP");
+
         DAO dao = new DAO();
+        HttpSession session = request.getSession();
+
+        String sessionOTP = (String) session.getAttribute("otp");
+
+        if (!dao.validatePassword(password)) {
+            request.setAttribute("message", "Password must be at least 8 characters, with at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.");
+            request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
+            return;
+        }
         if (!password.equals(rePassword)) {
             // Display an error message or handle the error
             request.setAttribute("message", "Password and confirm password do not match.");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
             return;
         }
+
+        if (!cOTP.equals(sessionOTP)) {
+            request.setAttribute("message", "Your OTP is incorrect.");
+            request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
+            return;
+        }
+
         Customer cus = dao.CheckCustomerExist(email);
-        if(cus!=null){
+        if (cus != null) {
             request.setAttribute("message", "Register failed. Emal existed.");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-//        boolean isCOTPValid = dao.isCOTPValid(cOTP);
 //        if (!isCOTPValid) {
 //        request.setAttribute("message", "Your OTP is incorrect.");
 //        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-    }else {
-        dao.addCustomer(email, password, fullName, phoneNumber, address, cOTP);
-        request.setAttribute("message", "Register successfully.");
-        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
-    }
+        } else {
+            dao.addCustomer(email, password, fullName, phoneNumber, address, null);
+            request.setAttribute("message", "Register successfully.");
+            session.removeAttribute("otp");
+            request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
+        }
 
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

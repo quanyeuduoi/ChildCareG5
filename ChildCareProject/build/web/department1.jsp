@@ -3,7 +3,7 @@
     Created on : Jan 12, 2024, 9:52:27 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,37 +59,79 @@
             </div>
         </div>
 
-        <!-- ======= Header ======= -->
-        <header id="header" class="fixed-top">
-            <div class="container d-flex align-items-center">
+        <c:choose>
+            <c:when test="${sessionScope.cus ne null}">
+                <!-- ======= Header ======= -->
+                <header id="header" class="fixed-top">
+                    <div class="container d-flex align-items-center">
 
-                <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+                        <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
 
-                <nav id="navbar" class="navbar order-last order-lg-0">
-                    <ul>
-                        <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">Order History</a></li>
-                        <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
-                        <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                        <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
-                                <li><a href="department1.jsp">Department 1</a></li>
-                                <li><a href="department1.jsp">Department 2</a></li>
-                                <li><a href="department1.jsp">Department 3</a></li>
-                                <li><a href="department1.jsp">Department 4</a></li>
-                                <li><a href="department1.jsp">Department 5</a></li>
+                                <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                                <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
+                                <li><a class="nav-link scrollto" href="#about">Order History</a></li>
+                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <c:forEach var="dep" items="${sessionScope.departmentList}">
+                                            <li><a href="department1.jsp">${dep.departmentName}</a></li>   
+                                            </c:forEach>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"><span>${cus.getFullName()}</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="userDetail?email=${cus.getEmail()}">My Account</a></li>
+                                        <li><a href="logout">Log out</a></li>
+                                    </ul>
+                                </li>
+
                             </ul>
-                        </li>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
 
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav><!-- .navbar -->
 
-                <a href="LoginRegister.jsp" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</span></a>
+                    </div>
+                </header><!-- End Header -->
+            </c:when>
+            <c:otherwise>
+                <!-- ======= Header ======= -->
+                <header id="header" class="fixed-top">
+                    <div class="container d-flex align-items-center">
 
-            </div>
-        </header><!-- End Header -->
+                        <a href="homepage.jsp" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+
+                        <nav id="navbar" class="navbar order-last order-lg-0">
+                            <ul>
+                                <li><a class="nav-link scrollto " href="homepage.jsp">Home</a></li>
+                                <li><a class="nav-link scrollto " href="post?index=1">Post</a></li>
+                                <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
+                                <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="department1.jsp">Department 1</a></li>
+                                        <li><a href="department1.jsp">Department 2</a></li>
+                                        <li><a href="department1.jsp">Department 3</a></li>
+                                        <li><a href="department1.jsp">Department 4</a></li>
+                                        <li><a href="department1.jsp">Department 5</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
+
+                        <a href="LoginRegister.jsp" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</span></a>
+
+                    </div>
+                </header><!-- End Header -->
+            </c:otherwise>
+        </c:choose>
+
 
         <main id="main">
 
@@ -109,49 +151,98 @@
                 </div>
             </section><!-- End Breadcrumbs Section -->
 
+
+
             <section class="inner-page">
                 <div class="container">
+                    <form action="searchService" method="post" novalidate="novalidate">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-md-8 col-sm-10">
+                                <div class="row">
+                                    <div class="col-6 col-sm-5 p-0">
+                                        <input type="text" class="form-control form-control-sm search-slt" placeholder="Search" value="${txtNameService}" name="txtNameService">
+                                    </div>
+                                    <div class="col-6 col-sm-5 p-0">
+                                        <div class="d-flex">
+                                            <select id="department" name="department" class="form-control form-control-sm search-slt">
+                                                <option>Department</option>
+                                                <c:forEach var="dept" items="${sessionScope.departmentList}">
+                                                    <option value="${dept.departmentID}">${dept.departmentName}</option>
+                                                </c:forEach>
+                                            </select>
+                                                <button type="button" class="btn btn-sm btn-danger wrn-btn ml-2" background-color:#3FBBC0
+                                                        color: #fff>Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <!-- ======= Featured Services Section ======= -->
                     <section id="featured-services" class="featured-services">
                         <div class="container" data-aos="fade-up">
-
                             <div class="row">
-                                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                                        <h4 class="title"><a href="service1.jsp">Service1</a></h4>
-                                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                                    <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-                                        <div class="icon"><i class="fas fa-pills"></i></div>
-                                        <h4 class="title"><a href="service1.jsp"">Service2</a></h4>
-                                        <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                                <c:forEach var="service" items="${serviceList}">
+                                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                                            <h4 class="title"><a href="#">${service.serviceName}</a></h4>
+                                            <p class="description">${service.serviceDescription}</p>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                                    <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="icon"><i class="fas fa-thermometer"></i></div>
-                                        <h4 class="title"><a href="service1.jsp"">Service3</a></h4>
-                                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                                    <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="icon"><i class="fas fa-dna"></i></div>
-                                        <h4 class="title"><a href="service1.jsp"">Service4</a></h4>
-                                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-                                    </div>
-                                </div>
-
+                                </c:forEach>
                             </div>
-
                         </div>
-                    </section><!-- End Featured Services Section -->
+                    </section>  <!-- End Featured Services Section -->
+
+                    <div class="pagination-wrap">
+                        <!--                            <nav aria-label="Page navigation example">
+                                                        <ul class="pagination">
+                                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <c:forEach begin="1" end="${end}" var="i">
+                            <li class="page-item"><a class="page-link" href="post?index=${i}">${i}</a></li>
+                        </c:forEach>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>-->
+                        <!-- ======= Hien thi phan trang phia frontend ======= -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <c:if test="${empty index or index eq 1}"> <!-- CONSIDER INDEX EQUAL 1 ==> DISABLE PREVIOUS -->
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Previous</a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${not (empty index or index eq 1)}"> 
+                                    <li class="page-item">
+                                        <a class="page-link" href="departmentDetail?index=${index - 1}">Previous</a>
+                                    </li>
+                                </c:if>
+
+                                <c:forEach begin="1" end="${end}" var="i">
+                                    <c:set var="activeClass" value="${(not empty index and index eq i) ? 'active' : ''}"/>
+                                    <li class="page-item ${activeClass}">
+                                        <a class="page-link" href="departmentDetail?index=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <c:if test="${empty index or index eq end}"> <!-- CONSIDER INDEX EQUAL ENDP ==> DISABLE NEXT -->
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </c:if>
+
+                                <c:if test="${index < end}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="departmentDetail?index=${index + 1}">Next</a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
+
+                    </div>
+
                 </div>
             </section>
 

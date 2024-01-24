@@ -59,7 +59,7 @@
           err = (String)request.getAttribute("err");
           }
           
-String sc="";
+        String sc="";
        
            if(request.getAttribute("sc")!=null){
           sc = (String)request.getAttribute("sc");

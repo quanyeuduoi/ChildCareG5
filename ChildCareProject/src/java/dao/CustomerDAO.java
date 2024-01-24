@@ -74,4 +74,57 @@ public class CustomerDAO {
         }
         return false;
     }
+      
+      public boolean editProfile(String email, String phone, String address, String fullName){
+        try {
+            String query = "update Customer "
+                    + "set Fullname=?,Phonenumber=?,Address=? "
+                    + "where email=?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fullName);
+            ps.setString(2, phone);
+            ps.setString(3, address);
+            ps.setString(4, email);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("editProfile:" + e.getMessage());
+            return false;
+        }
+    }
+      public Customer CheckCustomerExist(String Email, String Password) {
+        String query = "select * from Customer where [Email] = ? and [Password] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, Email);
+            ps.setString(2, Password);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    public void UpdatePassword(Customer cus){
+        String query = "UPDATE [dbo].[Customer] SET [Password] = ? WHERE [Email] = ?";
+        try{
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cus.getPassword());
+            ps.setString(2, cus.getEmail());
+            ps.executeUpdate(); 
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 }

@@ -12,6 +12,30 @@
         <servlet-name>PaymentControl</servlet-name>
         <servlet-class>control.PaymentControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutControl</servlet-name>
+        <servlet-class>control.LogoutControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>userDetail</servlet-name>
+        <servlet-class>control.userDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostControl</servlet-name>
+        <servlet-class>control.PostControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CChangePasswordControl</servlet-name>
+        <servlet-class>control.CChangePasswordControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepartmentControl</servlet-name>
+        <servlet-class>control.DepartmentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepartmentDetail</servlet-name>
+        <servlet-class>control.DepartmentDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -23,6 +47,30 @@
     <servlet-mapping>
         <servlet-name>PaymentControl</servlet-name>
         <url-pattern>/PaymentControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutControl</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userDetail</servlet-name>
+        <url-pattern>/userDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostControl</servlet-name>
+        <url-pattern>/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CChangePasswordControl</servlet-name>
+        <url-pattern>/change</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentControl</servlet-name>
+        <url-pattern>/department</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentDetail</servlet-name>
+        <url-pattern>/departmentDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

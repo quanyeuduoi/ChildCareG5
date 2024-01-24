@@ -20,16 +20,16 @@
             <form action="register" method="post">
                 <h1>Create Account</h1>
                 <input type="text" name="fullName" placeholder="Name" />
-                <input type="text" name="email" placeholder="Your email" />
+<!--                <input type="email" name="email" placeholder="Your email" />-->
                 <!--                    Send OTP button-->
-                <!--                <div class="email-container">
-                                    <input name="email" type="email" id="email" placeholder="Email" />
-                                    <button class="small-button" onclick="sendOTP()">Send OTP</button>
-                                </div>-->
+                <div class="email-container">
+                    <input name="email" type="email" id="email" placeholder="Email" />
+                    <button type="button" class="small-button" onclick="sendOTP(); startCountdown();"  id="sendOTPButton">Send OTP</button>
+                </div>
                 <input type="password" name="password" placeholder="Password" />
                 <input type="password" name="rePassword" placeholder="Re-Password" />
-                <input type="hidden" name="cOTP" placeholder="Enter OTP here" />
-                <button>Sign Up</button>
+                <input type="text" name="cOTP" placeholder="Enter OTP here" />
+                <button tyoe="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -61,29 +61,43 @@
     <!-- Vendor JS Files -->
     <script src="assets/js/login.js"></script>
     <script>
-        function sendOTP() {
-            var email = document.getElementById("email").value;
-        <%
-            String emailToCheck = request.getParameter("email");
-            DAO dao = new DAO();
-            Customer customer = dao.CheckCustomerExist(emailToCheck);
+                        function sendOTP() {
 
-            if (customer != null) {
-        %>
-            alert("Email already exists!");
-        <%
-            } else {
-        %>
-            // Call other functions 
-            String subject = "Here is your OTP.";
-                    String otp = generateOTP();
-            updatcOTPinDatabase(emailToCheck, otp);
-            sendOTPEmail(subject, emailToCheck, otp);
-        <%
-            }
-        %>
-        }
+                            var email = document.getElementById("email").value;
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("GET", "sendRegisterOTP?email=" + email, true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                    alert(xhr.responseText);
+                                }
+                            };
+                            xhr.send();
+                        }
     </script>
+    <script>
+    function startCountdown() {
+        var sendOTPButton = document.getElementById("sendOTPButton");
+        var countdown = 60; // Số giây đếm ngược
+        sendOTPButton.disabled = true;
+
+        // Cập nhật text trên nút sendotp
+        sendOTPButton.textContent = countdown + "s";
+        var countdownInterval = setInterval(function () {
+            countdown--;
+
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                sendOTPButton.textContent = "Send OTP";
+                sendOTPButton.disabled = false;
+            } else {
+                // Cập nhật thời gian đếm ngược
+                sendOTPButton.textContent = countdown + "s";
+            }
+        }, 1000); // Mỗi 1 giây (1000 milliseconds)
+    }
+</script>
+
     <script>
         // Function to show popup message
         function showMessage(message) {
@@ -91,8 +105,8 @@
         }
 
         // Check if there is a popup message in request attribute and show it
-    var popupMessage = "<%= request.getAttribute("message") %>";
-        if (popupMessage !== null && popupMessage !== "") {
+        var popupMessage = "<%= request.getAttribute("message") %>";
+        if (popupMessage !== null) {
             showMessage(popupMessage);
         }
     </script>

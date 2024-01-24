@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import dao.DAO;
 /**
  *
  * @author VINH NINH
@@ -67,6 +67,7 @@ public class ForgetPassControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CustomerDAO c = new CustomerDAO();
+        DAO d = new DAO();
         String email = request.getParameter("email");
         request.setAttribute("email", email);
         String cm = request.getParameter("cm");
@@ -86,10 +87,17 @@ public class ForgetPassControl extends HttpServlet {
          request.setAttribute("pass", pass);
          request.setAttribute("repass", repass);
          if(pass.equals(repass)){
-             c.forGetPass(pass, email);
+             if(d.validatePassword(pass)){
+                 c.forGetPass(pass, email);
              String sc = "Reset Password succesfully!";
               request.setAttribute("sc", sc);
               request.getRequestDispatcher("ForgetPassChangePass.jsp").forward(request, response);
+              
+             }
+             String err = "Password must have more than 8 digits and at least has 1 word, 1 Upercase, 1 number and 1 symbol!(Password cant have space!)";
+             request.setAttribute("err", err);
+             request.getRequestDispatcher("ForgetPassChangePass.jsp").forward(request, response);
+             
          }else{
              String err = "Re-password must is the same with password";
              request.setAttribute("err", err);
