@@ -40,7 +40,13 @@ public class SendOTPRegisterControl extends HttpServlet {
 
             if (customer != null) {
                 out.println("Customer is existed.");
-            } else {
+                return;
+            }
+            if (email==null || email.isEmpty()){
+                out.println("You didn't enter the email.");
+                return;
+            }
+            else {
                 String otp = dao.generateOTP();
                 HttpSession session = request.getSession();
                 session.setAttribute("otp", otp);
