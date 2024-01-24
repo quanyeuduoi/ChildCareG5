@@ -155,24 +155,23 @@
 
             <section class="inner-page">
                 <div class="container">
-                    <form action="#" method="post" novalidate="novalidate">
+                    <form action="searchService" method="post" novalidate="novalidate">
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-8 col-sm-10">
                                 <div class="row">
                                     <div class="col-6 col-sm-5 p-0">
-                                        <input type="text" class="form-control form-control-sm search-slt" placeholder="Search">
+                                        <input type="text" class="form-control form-control-sm search-slt" placeholder="Search" value="${txtNameService}" name="txtNameService">
                                     </div>
                                     <div class="col-6 col-sm-5 p-0">
                                         <div class="d-flex">
-                                            <select class="form-control form-control-sm search-slt">
-                                                <option>Rating</option>
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
+                                            <select id="department" name="department" class="form-control form-control-sm search-slt">
+                                                <option>Department</option>
+                                                <c:forEach var="dept" items="${sessionScope.departmentList}">
+                                                    <option value="${dept.departmentID}">${dept.departmentName}</option>
+                                                </c:forEach>
                                             </select>
-                                            <button type="button" class="btn btn-sm btn-danger wrn-btn ml-2" background-color:#3FBBC0
-                                                    color: #fff>Search</button>
+                                                <button type="button" class="btn btn-sm btn-danger wrn-btn ml-2" background-color:#3FBBC0
+                                                        color: #fff>Search</button>
                                         </div>
                                     </div>
                                 </div>
@@ -217,14 +216,14 @@
                                 </c:if>
                                 <c:if test="${not (empty index or index eq 1)}"> 
                                     <li class="page-item">
-                                        <a class="page-link" href="post?index=${index - 1}">Previous</a>
+                                        <a class="page-link" href="departmentDetail?index=${index - 1}">Previous</a>
                                     </li>
                                 </c:if>
 
                                 <c:forEach begin="1" end="${end}" var="i">
                                     <c:set var="activeClass" value="${(not empty index and index eq i) ? 'active' : ''}"/>
                                     <li class="page-item ${activeClass}">
-                                        <a class="page-link" href="post?index=${i}">${i}</a>
+                                        <a class="page-link" href="departmentDetail?index=${i}">${i}</a>
                                     </li>
                                 </c:forEach>
 
@@ -236,7 +235,7 @@
 
                                 <c:if test="${index < end}">
                                     <li class="page-item">
-                                        <a class="page-link" href="post?index=${index + 1}">Next</a>
+                                        <a class="page-link" href="departmentDetail?index=${index + 1}">Next</a>
                                     </li>
                                 </c:if>
                             </ul>

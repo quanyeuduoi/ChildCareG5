@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import model.Service;
 
 /**
@@ -16,12 +17,33 @@ import model.Service;
  * @author ACER NQC0821
  */
 public class ServiceDAO {
+
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
+    public List<Service> searchService(String txtNameService, String servid) {
+        List<Service> service = new ArrayList<>();
+        String query = "SELECT *\n"
+                + "FROM Service\n"
+                + "WHERE ServiceName LIKE N'%?%' AND DepartmentID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, txtNameService);
+            ps.setString(2, servid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                service.add(new Service(rs.getInt(1), rs.getString(2),
+                        rs.getString(3)));
+            }
+        } catch (Exception e) {
+        }
+        return service;
+    }
+
     public ArrayList<Service> getServiceList() {
-       ArrayList<Service> serviceList = new ArrayList<>();
+        ArrayList<Service> serviceList = new ArrayList<>();
         try {
             String sql = "Select * from Service";
             conn = new DBContext().getConnection();
@@ -39,14 +61,14 @@ public class ServiceDAO {
             return null;
         }
     }
-    
-    public ArrayList<Service> getServiceByID(String depID){
-         ArrayList<Service> serviceListByID = new ArrayList<>();
+
+    public ArrayList<Service> getServiceByID(String depID) {
+        ArrayList<Service> serviceListByID = new ArrayList<>();
         try {
             String sql = "Select * from Service Where DepartmentID = ?";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1,depID);
+            ps.setString(1, depID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Service service = new Service(rs.getInt(1), rs.getString(2),
@@ -60,8 +82,8 @@ public class ServiceDAO {
             return null;
         }
     }
-    
-public ArrayList<Service> pagingList(int index) {
+
+    public ArrayList<Service> pagingList(int index) {
         ArrayList<Service> list = new ArrayList<>();
         String query = "Select * from Service\n"
                 + "Order by ServiceID\n"
@@ -69,7 +91,7 @@ public ArrayList<Service> pagingList(int index) {
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, (index-1)*4);  //in the database, if you want to see 5 first post then offset = 0, 5 post page => 5,....
+            ps.setInt(1, (index - 1) * 4);  
             rs = ps.executeQuery();
             while (rs.next()) {
                 Service service = new Service(rs.getInt(1), rs.getString(2),
@@ -81,9 +103,9 @@ public ArrayList<Service> pagingList(int index) {
             System.out.println("pagingList:" + e.getMessage());
         }
         return list;
-    } 
+    }
 
-     public int getTotalService() {
+    public int getTotalService() {
 
         try {
             String query = "Select count(*) from Service";
@@ -100,12 +122,12 @@ public ArrayList<Service> pagingList(int index) {
         }
         return 0;
     }
-    
+
     public static void main(String[] args) {
         ServiceDAO sdao = new ServiceDAO();
         int count = sdao.getTotalService();
         System.out.println(count);
-        
+
 //        for(Service s : lists){
 //            System.out.println(s);
 //        }

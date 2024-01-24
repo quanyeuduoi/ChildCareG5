@@ -13,6 +13,7 @@
         <title>JSP Page</title>
         <link href="assets/css/style_1.css" rel="stylesheet">
     </head>
+    <body>
     <div class="card login-form">
         <div class="card-body">
             <h3 class="card-title text-center">Change password</h3>
@@ -21,12 +22,12 @@
 
             <div class="card-text">
                 <form action="change" method="post">
-<!--                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Warming!</strong> ${message}
                         <a class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
-                    </div>-->
+                    </div>
                     <input type="hidden" name="email" value="${sessionScope.cus.email}"> 
 <!--                    <input type="hidden" name="oldPass" value="${sessionScope.customer.password}">-->
                     <div class="form-group">
@@ -46,5 +47,6 @@
             </div>
         </div>
     </div>
+    </body>                    
 </html>
 

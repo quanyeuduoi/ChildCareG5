@@ -8,6 +8,8 @@ import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Customer;
 
 
@@ -97,7 +99,7 @@ public class CustomerDAO {
             System.out.println(e);
         }
     }
-	public boolean validatePassword(String password) {
+      public boolean validatePassword(String password) {
         String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);

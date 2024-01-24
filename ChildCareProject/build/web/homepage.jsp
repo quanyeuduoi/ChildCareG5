@@ -73,7 +73,7 @@
                                 <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
                                 <li class="dropdown"><a href="departmentDetail?index=1"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        <c:forEach items="${departmentList}" var="d">
+                                        <c:forEach items="${sessionScope.departmentList}" var="d">
                                             <li><a href="department1.jsp">${d.departmentName}</a></li>
                                         </c:forEach>
                                     </ul>
@@ -110,7 +110,9 @@
                                 <li><a class="nav-link scrollto" href="doctor.jsp">Doctors</a></li>
                                 <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        
+                                        <c:forEach items="${sessionScope.departmentList}" var="d">
+                                            <li><a href="department1.jsp">${d.departmentName}</a></li>
+                                        </c:forEach>
                                     </ul>
                                 </li>
 

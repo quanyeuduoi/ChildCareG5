@@ -44,14 +44,17 @@ public class CChangePasswordControl extends HttpServlet {
             request.setAttribute("message","Information is incorrect!");
             request.getRequestDispatcher("changePass.jsp").forward(request,response);
 	 }else{
+             
              if(!newPass.equals(conPass)){
                 request.setAttribute("message","New password do not match!");
                 request.getRequestDispatcher("changePass.jsp").forward(request,response);
-             }else{
-                 Customer customer1 = new Customer(cus.getCustomerID(), email, newPass, cus.getFullName(), cus.getPhoneNumber(), cus.getAddress(), cus.getcOTP());
+             }else if(dao.validatePassword(conPass)){
+                Customer customer1 = new Customer(cus.getCustomerID(), email, newPass, cus.getFullName(), cus.getPhoneNumber(), cus.getAddress(), cus.getcOTP());
                  dao.UpdatePassword(customer1);
                  request.getSession().setAttribute("customer", customer1); 
-//                 response.sendRedirect("homepage.jsp");
+             }else{
+                request.setAttribute("message","At least 8 character, 1 special symbol, 1 uppercase");
+                request.getRequestDispatcher("changePass.jsp").forward(request,response);
              }
              request.getRequestDispatcher("homepage.jsp").forward(request,response);
          }  
