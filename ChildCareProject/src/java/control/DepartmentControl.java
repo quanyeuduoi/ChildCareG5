@@ -59,11 +59,7 @@ public class DepartmentControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DepartmentDAO ddao = new DepartmentDAO();
-        ArrayList<Department> departmentList = ddao.getDepartmentList();
-
-        request.getSession().setAttribute("departmentList", departmentList);
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+     
     }
 
     /**
@@ -77,7 +73,10 @@ public class DepartmentControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         DepartmentDAO ddao = new DepartmentDAO();
+        ArrayList<Department> departmentList = ddao.getDepartmentList();
+        request.getSession().setAttribute("departmentList", departmentList);
+        request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 
     /**

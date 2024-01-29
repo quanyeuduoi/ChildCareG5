@@ -46,7 +46,7 @@ public class CLoginControl extends HttpServlet {
         } else {
             request.getSession().setAttribute("cus", customer);
         }
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        request.getRequestDispatcher("department").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
