@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Customer;
 
 /**
@@ -38,13 +39,13 @@ public class CLoginControl extends HttpServlet {
         request.setAttribute("email", email);
         request.setAttribute("password", password);
         CustomerDAO customerDAO = new CustomerDAO();
-        Customer customer = customerDAO.login(email, password);
-        if (customer == null) {
+        Account account = customerDAO.login(email, password);
+        if (account == null) {
             request.setAttribute("message", "Invalid email or password");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
             return;
         } else {
-            request.getSession().setAttribute("cus", customer);
+            request.getSession().setAttribute("cus", account);
         }
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
+import model.Account;
 import model.Customer;
 
 /**
@@ -40,8 +41,7 @@ public class CRegisterControl extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
-        String address = null;
-        String phoneNumber = null;
+        String role = "Customer";
         String cOTP = request.getParameter("cOTP");
 
         DAO dao = new DAO();
@@ -67,15 +67,15 @@ public class CRegisterControl extends HttpServlet {
             return;
         }
 
-        Customer cus = dao.CheckCustomerExist(email);
-        if (cus != null) {
+        Account account = dao.CheckAccountExist(email);
+        if (account != null) {
             request.setAttribute("message", "Register failed. Emal existed.");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
 //        if (!isCOTPValid) {
 //        request.setAttribute("message", "Your OTP is incorrect.");
 //        request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);
         } else {
-            dao.addCustomer(email, password, fullName, phoneNumber, address, null);
+            dao.registerCustomer(email, password, role, null, fullName);
             request.setAttribute("message", "Register successfully.");
             session.removeAttribute("otp");
             request.getRequestDispatcher("LoginRegister.jsp").forward(request, response);

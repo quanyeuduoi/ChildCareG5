@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 import model.Customer;
 
 /**
@@ -36,9 +37,9 @@ public class SendOTPRegisterControl extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String email = request.getParameter("email");
             DAO dao = new DAO();
-            Customer customer = dao.CheckCustomerExist(email);
+            Account account = dao.CheckAccountExist(email);
 
-            if (customer != null) {
+            if (account != null) {
                 out.println("Customer is existed.");
                 return;
             }

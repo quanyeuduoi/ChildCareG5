@@ -21,6 +21,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Account;
 
 /**
  *
@@ -33,26 +34,23 @@ public class DAO {
     ResultSet rs = null;
 
     //Register customer
-    public Customer addCustomer(String email, String password, String fullName, String phoneNumber,
-            String address, String cOTP) {
-        String query = "INSERT INTO [dbo].[Customer]\n"
+    public Customer registerCustomer(String email, String password, String role, String otp,
+            String fullName) {
+        String query = "INSERT INTO [dbo].[Account]\n"
                 + "           ([Email]\n"
                 + "           ,[Password]\n"
-                + "           ,[Fullname]\n"
-                + "           ,[Phonenumber]\n"
-                + "           ,[Address]\n"
-                + "           ,[COTP])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           ,[Role]\n"
+                + "           ,[OTP]\n"
+                + "           ,[FullName])\n"
+                + "     VALUES (?, ?, ?, ?, ?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, password);
-            ps.setString(3, fullName);
-            ps.setString(4, phoneNumber);
-            ps.setString(5, address);
-            ps.setString(6, cOTP);
+            ps.setString(3, role);
+            ps.setString(4, otp);
+            ps.setString(5, fullName);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,21 +91,20 @@ public class DAO {
     }
 
     //Check Customer Exist
-    public Customer CheckCustomerExist(String Email) {
-        String query = "select * from Customer where [Email] = ?";
+    public Account CheckAccountExist(String Email) {
+        String query = "select * from Account where [Email] = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, Email);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Customer(rs.getInt("customerID"),
+                return new Account(rs.getInt("accountID"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        rs.getString("fullName"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("address"),
-                        rs.getString("cOTP")
+                        rs.getString("role"),
+                        rs.getString("otp"),
+                        rs.getString("fullName")
                 );
             }
         } catch (Exception e) {
@@ -117,7 +114,7 @@ public class DAO {
 
     //Get random OTP
     public String generateOTP() {
-        int otpLength = 8;
+        int otpLength = 6;
         String characters = "0123456789";
         StringBuilder otp = new StringBuilder();
         Random random = new Random();
@@ -184,7 +181,7 @@ public class DAO {
             }
         }
     }
-    
+
     //CHeck validation password
     public boolean validatePassword(String password) {
         String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=-]).{8,}$";

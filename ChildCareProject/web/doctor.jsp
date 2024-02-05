@@ -5,6 +5,8 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="dao.DepartmentDAO" %>
+<%@page import="model.Department" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -147,7 +149,7 @@
                                             </div>
                                             <div class="member-info">
                                                 <h4>${o.fullName}</h4>
-                                                <span>Độ tuổi ${o.age}</span>
+                                                <span>Age: ${o.age}</span>
                                             </div>
                                         </div>
                                     </div>

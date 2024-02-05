@@ -38,5 +38,25 @@ public class DepartmentDAO {
             return null;
         }
     }
+     
+    //Get department by ID
+    public Department getDepartmentByID(int deID){
+        String sql = "SELECT * FROM Department where DepartmentID = ?";
+        try{
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(deID, sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                return new Department(
+                            rs.getInt(1),
+                            rs.getString(2));
+            }
+        } catch(Exception e){
+            
+        }
+        return null;
+    }
       
+    
 }

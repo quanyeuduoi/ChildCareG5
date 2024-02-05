@@ -20,7 +20,6 @@
             <form action="register" method="post">
                 <h1>Create Account</h1>
                 <input type="text" name="fullName" placeholder="Name" />
-<!--                <input type="email" name="email" placeholder="Your email" />-->
                 <!--                    Send OTP button-->
                 <div class="email-container">
                     <input name="email" type="email" id="email" placeholder="Email" />
@@ -127,6 +126,7 @@
         var popupMessage = "<%= request.getAttribute("message") %>";
         if (popupMessage !== null) {
             showMessage(popupMessage);
+            
         }
     </script>
 
