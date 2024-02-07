@@ -14,7 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Account;
 import model.Doctor;
+import model.DoctorList;
 
 /**
  *
@@ -35,7 +37,7 @@ public class SearchDoctorControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String txtFullnameSearch = request.getParameter("txtFullnameSearch");
         GuestDAO gDAO = new GuestDAO();
-        List<Doctor> dlist = gDAO.searchDoctorByName(txtFullnameSearch);
+        List<DoctorList> dlist = gDAO.searchDoctorByName(txtFullnameSearch);
         request.setAttribute("dlist",dlist);
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
         

@@ -150,6 +150,8 @@
                                             <div class="member-info">
                                                 <h4>${o.fullName}</h4>
                                                 <span>Age: ${o.age}</span>
+                                                <span>Age: ${o.email}</span>
+                                                <span>Age: ${o.departName}</span>
                                             </div>
                                         </div>
                                     </div>

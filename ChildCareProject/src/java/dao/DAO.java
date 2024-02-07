@@ -141,7 +141,6 @@ public class DAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Close resources in a finally block to ensure they are always closed
             try {
                 if (ps != null) {
                     ps.close();
@@ -188,6 +187,38 @@ public class DAO {
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
+    }
+
+    // Check Role based on Email
+    public String checkRole(String email) {
+        String query = "SELECT Role FROM Account WHERE Email = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Role");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng các tài nguyên
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null; // Trả về null nếu tài khoản không tồn tại
     }
 
 }

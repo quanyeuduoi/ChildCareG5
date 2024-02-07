@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Doctor;
+import model.DoctorList;
 
 /**
  *
@@ -35,7 +36,7 @@ public class DoctorPageControl extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         GuestDAO gDAO = new GuestDAO();
-        List<Doctor> dlist = gDAO.getAllDoctor();
+        List<DoctorList> dlist = gDAO.getAllDoctors();
         request.setAttribute("dlist",dlist);
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
     } 

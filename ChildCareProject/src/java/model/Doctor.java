@@ -10,16 +10,14 @@ package model;
  */
 public class Doctor {
     int docID;
-    String fullName;
     int age;
     int departmentID;
 
     public Doctor(){
         
     }
-    public Doctor(int docID, String fullName, int age, int departmentID) {
+    public Doctor(int docID, int age, int departmentID) {
         this.docID = docID;
-        this.fullName = fullName;
         this.age = age;
         this.departmentID = departmentID;
     }
@@ -30,14 +28,6 @@ public class Doctor {
 
     public void setDocID(int docID) {
         this.docID = docID;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public int getAge() {

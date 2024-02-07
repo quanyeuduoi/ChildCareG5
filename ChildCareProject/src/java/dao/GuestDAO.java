@@ -10,72 +10,102 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.Account;
 import model.Doctor;
+import model.DoctorList;
 
 /**
  *
  * @author Dell
  */
 public class GuestDAO {
+
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     //Get list doctor from database
-    public List<Doctor> getAllDoctor() {
-        List<Doctor> dlist = new ArrayList<>();
-        String query = "select * from Doctor";
+    public List<DoctorList> getAllDoctors() {
+        List<DoctorList> doctors = new ArrayList<>();
+        String query = "SELECT d.Age, a.FullName, a.Email, dpt.DepartmentName "
+                + "FROM Doctor d "
+                + "INNER JOIN Account a ON d.docID = a.accountID "
+                + "INNER JOIN Department dpt ON d.departmentID = dpt.DepartmentID "
+                + "WHERE a.Role = 'Doctor'";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                dlist.add(new Doctor(rs.getInt("docID"),
-                        rs.getString("fullName"),
-                        rs.getInt("age"),
-                        rs.getInt("departmentID")));
+                DoctorList doctor = new DoctorList();
+                doctor.setAge(rs.getInt("Age"));
+                doctor.setFullName(rs.getString("FullName"));
+                doctor.setEmail(rs.getString("Email"));
+                doctor.setDepartName(rs.getString("DepartmentName"));
+                doctors.add(doctor);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
-        return dlist;
+        return doctors;
     }
-    
+
     //Search doctor by name
-    public List<Doctor> searchDoctorByName(String txtFullnameSearch) {
-        List<Doctor> dlist = new ArrayList<>();
-        String query = "select*from Doctor where [Fullname] like ?";
+    public List<DoctorList> searchDoctorByName(String txtFullnameSearch) {
+    List<DoctorList> dlist = new ArrayList<>();
+    String query = "SELECT d.Age, a.FullName, a.Email, dpt.DepartmentName "
+                 + "FROM Doctor d "
+                 + "INNER JOIN Account a ON d.docID = a.accountID "
+                 + "INNER JOIN Department dpt ON d.departmentID = dpt.DepartmentID "
+                 + "WHERE a.Role = 'Doctor' AND a.FullName LIKE ?";
+    try {
+        conn = new DBContext().getConnection();
+        ps = conn.prepareStatement(query);
+        ps.setString(1, "%" + txtFullnameSearch + "%");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            DoctorList doctor = new DoctorList();
+            doctor.setAge(rs.getInt("Age"));
+            doctor.setFullName(rs.getString("FullName"));
+            doctor.setEmail(rs.getString("Email"));
+            doctor.setDepartName(rs.getString("DepartmentName"));
+            dlist.add(doctor);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
         try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1,"%"+ txtFullnameSearch +"%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                dlist.add(new Doctor(rs.getInt("docID"),
-                        rs.getString("fullName"),
-                        rs.getInt("age"),
-                        rs.getInt("departmentID")));
+            if (rs != null) {
+                rs.close();
             }
-        } catch (Exception e) {
-        }
-        return dlist;
-    }
-
-     public static void main(String[] args) {
-        GuestDAO guestDAO = new GuestDAO();
-
-        // Retrieve the list of doctors
-        List<Doctor> doctorList = guestDAO.getAllDoctor();
-
-        // Display the information for each doctor
-        for (Doctor doctor : doctorList) {
-            System.out.println("Doctor ID: " + doctor.getDocID());
-            System.out.println("Full Name: " + doctor.getFullName());
-            System.out.println("Age: " + doctor.getAge());
-            System.out.println("Department ID: " + doctor.getDepartmentID());
-            System.out.println("------------------------------------");
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
+    return dlist;
+}
 
 
- 
+    
+
 }
