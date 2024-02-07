@@ -52,7 +52,7 @@ public class CChangePasswordControl extends HttpServlet {
                  dao.UpdatePassword(customer1);
                  request.getSession().setAttribute("customer", customer1); 
 //                 response.sendRedirect("homepage.jsp");
-             }
+             }//Ok
              request.getRequestDispatcher("homepage.jsp").forward(request,response);
          }  
     } 
