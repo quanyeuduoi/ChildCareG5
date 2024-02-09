@@ -6,6 +6,7 @@ package context;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,5 +28,22 @@ public class DBContext {
     private final String instance = "";
     private final String userID = "sa";
     private final String password = "Lquankhai11";
-    
+   
+    public static void main(String[] args) {
+        DBContext context = new DBContext();
+        
+        try {
+            Connection connection = context.getConnection();
+            if (connection != null) {
+                System.out.println("Connected to the database successfully!");
+                connection.close();
+            } else {
+                System.out.println("Failed to connect to the database!");
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.err.println("Unexpected error: " + ex.getMessage());
+        }
+    }
 }
