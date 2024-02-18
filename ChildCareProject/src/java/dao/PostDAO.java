@@ -24,7 +24,7 @@ public class PostDAO {
     public ArrayList<Post> getPostList() {
         ArrayList<Post> postList = new ArrayList<Post>();
         try {
-            String sql = "Select * from Post";
+            String sql = "select * from Post order by PostID asc";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();

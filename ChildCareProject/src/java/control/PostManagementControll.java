@@ -126,8 +126,11 @@ public class PostManagementControll extends HttpServlet {
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         if (filePart != null) {
-
-            String link = "F:/ChildCareG5-LeQuangKhai/ChildCareProject/web/assets/img/post/" + fileName;
+            String pathToFile = getServletContext().getRealPath("/") + "assets/img/post/"+ fileName;
+            System.out.println("pathToFile: " + pathToFile);
+            String currentDirectory = System.getProperty("user.dir");
+            System.out.println("user.dir: " + currentDirectory);
+            String link = pathToFile = getServletContext().getRealPath("/") + "assets/img/post/"+ fileName;
             System.out.println(link + " " + fileName);
             try {
                 FileOutputStream fos = new FileOutputStream(link);
@@ -143,7 +146,7 @@ public class PostManagementControll extends HttpServlet {
             request.setAttribute("status", status);
             request.getRequestDispatcher("CreatePost.jsp").forward(request, response);
         } else {
-            String status = "null roi kia";
+            String status = "null image";
             request.setAttribute("status", status);
             request.getRequestDispatcher("CreatePost.jsp").forward(request, response);
         }

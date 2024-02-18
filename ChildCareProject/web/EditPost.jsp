@@ -148,8 +148,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Add Image</label><br>
-                                    <button class="i1"><input type="file" name="file" value="${chosenPost.getImage()}" accept=".jpg,.png">Image</button>
-
+                                    <button class="i1"><input type="file" name="file" value="" accept=".jpg,.png">Image</button>
+                                    <<img src="assets/img/post/${chosenPost.getImage()}" /> >
                                 </div>
 
 
