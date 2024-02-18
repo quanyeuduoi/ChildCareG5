@@ -55,7 +55,7 @@ public class CLoginControl extends HttpServlet {
         } else {
             if (role.equals("Customer")) {
                 request.getSession().setAttribute("cus", account);
-                request.getRequestDispatcher("homepage.jsp").forward(request, response);
+                request.getRequestDispatcher("department").forward(request, response);
             } else if (role.equals("Doctor")) {
                 request.getSession().setAttribute("Doctor", account);
                 request.getSession().setAttribute("role", role);

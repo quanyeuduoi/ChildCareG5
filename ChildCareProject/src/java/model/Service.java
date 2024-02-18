@@ -13,12 +13,18 @@ public class Service {
     private String serviceName;
     private String serviceDescription;
 
+    public Service() {
+    }
+
+    
+    
     public Service(int serviceID, String serviceName, String serviceDescription) {
         this.serviceID = serviceID;
         this.serviceName = serviceName;
         this.serviceDescription = serviceDescription;
     }
 
+   
     public int getServiceID() {
         return serviceID;
     }

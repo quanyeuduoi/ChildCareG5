@@ -4,24 +4,40 @@
  */
 package model;
 
+import jakarta.servlet.http.Part;
+
 /**
  *
  * @author Admin
  */
 public class Post {
+
     private int postID;
     private String postTitle;
     private String postDetail;
     private String postShort;
     private String image;
-
-    public Post(int postID, String postTitle, String postDetail, String postShort, String image) {
+    private int serviceID;
+    public Post(int postID, String postDetail, String image, String postTitle, String postShort,int serviceID) {
         this.postID = postID;
-        this.postTitle = postTitle;
         this.postDetail = postDetail;
-        this.postShort = postShort;
         this.image = image;
+        this.postTitle = postTitle;
+        this.postShort = postShort;
+        this.serviceID = serviceID;
     }
+
+    public Post(int postID, String postDetail, String image, String postTitle, String postShort) {
+       this.postID = postID;
+        this.postDetail = postDetail;
+        this.image = image;
+        this.postTitle = postTitle;
+        this.postShort = postShort;
+    }
+
+    
+    public Post() {
+         }
 
     public int getPostID() {
         return postID;
@@ -62,7 +78,13 @@ public class Post {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
-    
+
+    public int getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
+    }
+
 }

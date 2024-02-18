@@ -62,7 +62,7 @@ public class ServiceDAO {
         }
     }
 
-    public ArrayList<Service> getServiceByID(String depID) {
+    public ArrayList<Service> getServiceByDepartmentID(String depID) {
         ArrayList<Service> serviceListByID = new ArrayList<>();
         try {
             String sql = "Select * from Service Where DepartmentID = ?";
@@ -82,7 +82,26 @@ public class ServiceDAO {
             return null;
         }
     }
+    public Service getServiceByID(int sID) {
 
+        try {
+            String sql = "Select * from Service Where ServiceID = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, sID);
+            rs = ps.executeQuery();
+           
+                Service service = new Service(rs.getInt(1), rs.getString(2),
+                        rs.getString(3)
+                );
+                
+            
+            return service;
+        } catch (Exception e) {
+            System.out.println("serviceListByID:" + e.getMessage());
+            return null;
+        }
+    }
     public ArrayList<Service> pagingList(int index) {
         ArrayList<Service> list = new ArrayList<>();
         String query = "Select * from Service\n"
@@ -122,7 +141,7 @@ public class ServiceDAO {
         }
         return 0;
     }
-
+    
     public static void main(String[] args) {
         ServiceDAO sdao = new ServiceDAO();
         int count = sdao.getTotalService();

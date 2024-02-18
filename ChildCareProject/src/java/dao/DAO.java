@@ -6,6 +6,8 @@ package dao;
 
 import model.Customer;
 import context.DBContext;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -190,7 +192,7 @@ public class DAO {
         return matcher.matches();
     }
 
-   public String checkRole(String email) {
+    public String checkRole(String email) {
         String query = "SELECT Role FROM Account WHERE Email = ?";
         try {
             conn = new DBContext().getConnection();
@@ -221,4 +223,16 @@ public class DAO {
         return null; // Trả về null nếu tài khoản không tồn tại
     }
 
+    public String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+
+   
 }
