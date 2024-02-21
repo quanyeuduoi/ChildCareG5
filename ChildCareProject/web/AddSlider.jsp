@@ -1,34 +1,26 @@
-<%-- 
-    Document   : EManagerUser
-    Created on : Sep 26, 2023, 12:35:20 PM
-    Author     : Dell
---%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <link rel="apple-touch-icon" sizes="76x76" href="dash/assets/img/apple-icon.png">
         <link rel="icon" type="image/png" href="dash/assets/img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>
-            G2 Banking  
-        </title>
+        <title>G2 Banking | Add News</title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-        <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <!-- CSS Files -->
         <link href="dash/assets/css/bootstrap.min.css" rel="stylesheet" />
         <link href="dash/assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
-        <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="dash/assets/demo/demo.css" rel="stylesheet" />
+        <script src="tool/ckeditor/ckeditor.js"></script>
+
     </head>
     <body class="user-profile">
-        <div class="wrapper ">
-            <jsp:include page="Left.jsp"></jsp:include>
+        <div class="wrapper">
+            <jsp:include page="Menu.jsp"></jsp:include>
                 <div class="main-panel" id="main-panel">
                     <!-- Navbar -->
                     <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
@@ -41,7 +33,7 @@
                                         <span class="navbar-toggler-bar bar3"></span>
                                     </button>
                                 </div>
-                                <a class="navbar-brand" href="#pablo">Manager Account</a>
+                                <a class="navbar-brand" href="#pablo">Add News</a>
                             </div>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -101,44 +93,36 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="title">Account Information</h5>
-                                        <a href="EAddCustomer.jsp" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Add Account</a>
+                                        <h5 class="title">Add Slider</h5>
+                                        <a href="SliderManagement" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Back</a>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="text-primary">
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Phone Number</th>
-                                                <th>Address</th>
-                                                <th>Actions</th>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Dữ liệu của người dùng sẽ được điền ở đây -->
-                                                <c:forEach items = "${Clist}" var = "o">
-                                                    <tr>
-                                                        <td>${o.customerID}</td>
-                                                        <td>${o.name}</td>
-                                                        <td>${o.phoneNumber}</td>
-                                                        <td>${o.address}</td>
-                                                        <td>
-                                                            <button class="btn btn-success btn-sm">Sửa</button>
-                                                            <button class="btn btn-danger btn-sm">Xóa</button>
-                                                        </td>
-                                                    </tr>
+                                    <p style="margin-left: 25px;" class="${messColor}">${mess}</p>
+                                <div class="card-body">
+                                    <form action="AddNews" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="title">Title:</label>
+                                            <select class="form-control" name="title">
+                                                <c:forEach items = "${postTitles}" var="o">
+                                                    <option>${o.getPostTitle()}</option>
                                                 </c:forEach>
-                                                <!--Thêm dữ liệu người dùng khác ở đây -->
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="file">Image:</label>
+                                            <input type="file" id="file" name="file">
+                                            <button type="button" onclick="document.getElementById('file').click()">Upload</button>
+                                            <p id="fileNameDisplay"></p>
+                                        </div>
+                                        <img id="imagePreview" style="max-width: 100%; max-height: 200px; display: none;">
+                                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <footer class="footer">
-                    <div class=" container-fluid ">
+                    <div class="container-fluid">
                         <nav>
                             <ul>
                                 <li>
@@ -167,6 +151,10 @@
                 </footer>
             </div>
         </div>
+        <!-- Core JS Files -->
+        <script>
+            CKEDITOR.replace('description');
+        </script>   
         <script src="dash/assets/js/core/jquery.min.js"></script>
         <script src="dash/assets/js/core/popper.min.js"></script>
         <script src="dash/assets/js/core/bootstrap.min.js"></script>
@@ -178,6 +166,33 @@
         <!-- Notifications Plugin -->
         <script src="dash/assets/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="dash/assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-        <script src="dash/assets/demo/demo.js"></script>    </body>
+        <script src="dash/assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
+        <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+        <script src="dash/assets/demo/demo.js"></script>
+
+        <script>
+            function previewImage(input) {
+                var imagePreview = document.getElementById('imagePreview');
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    imagePreview.style display = 'none';
+                }
+            }
+        </script>
+        <script>
+            document.getElementById('file').addEventListener('change', function (e) {
+                var fileName = e.target.files[0].name;
+                var fileNameDisplay = document.getElementById('fileNameDisplay');
+                fileNameDisplay.textContent = fileName;
+            });
+        </script>
+    </body>
 </html>

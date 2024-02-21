@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="ManagerSlider">
+                    <a href="SliderManagement">
                         <i class="now-ui-icons design_bullet-list-67"></i>
                         <p>Manager Slider</p>
                     </a>
