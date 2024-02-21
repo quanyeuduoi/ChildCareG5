@@ -130,7 +130,7 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="#">View Post</a>
-                                                <a class="dropdown-item" href="ManagePost?pid=${list.getServiceID()}">Edit Post</a>
+                                                <a class="dropdown-item" href="ManagePost?pid=${list.getPostID()}">Edit Post</a>
                                                 <a class="dropdown-item text-danger" href="#">Remove Post</a>
                                             </div>
                                         </div>

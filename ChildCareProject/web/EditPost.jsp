@@ -36,6 +36,12 @@
        
                    if(request.getAttribute("pservice")!=null){
                   pservice = (String)request.getAttribute("pservice");}
+                  
+                    String ptid="";
+       
+                   if(request.getAttribute("ptid")!=null){
+                  ptid = (String)request.getAttribute("ptid");}
+                  
     %>
     <body class="">
         <div class="wrapper ">
@@ -116,9 +122,11 @@
                                 <h1>Edit post</h1>
 
                                 <form action="ManagePost" method="post" enctype="multipart/form-data">
-
-                                    Service:<select name="service">
-
+                                    <input type="hidden" name="ed" value="1">
+                                    <input type="hidden" name="op" value="${chosenPost.getImage()}">
+                                <input type="hidden" name="mid" value="<%=ptid%>">
+                                Service:<select name="service">
+                                    <option value="null" selected>All</option>
                                     <c:forEach items="${slist}" var="item">
                                         <c:choose>
                                             <c:when test="${item.getServiceID() eq chosenPost.getServiceID()}">
@@ -141,15 +149,22 @@
                                     <label for="title">Post Short <span class="require">*</span></label>
                                     <input type="text" required class="form-control" name="short" value="${chosenPost.getPostShort()}" style="background-color: #E3E3E3" />
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <label for="description">Post Detail</label>
-                                    <textarea rows="5" class="form-control" name="detail" value="${chosenPost.getPostDetail()}" style="background-color: #E3E3E3" ></textarea>
+
+                                    <textarea rows="5" class="form-control" name="detail" ${chosenPost.getPostDetail()} style="background-color: #E3E3E3" >${chosenPost.getPostDetail()}</textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlFile1">Add Image</label><br>
-                                    <button class="i1"><input type="file" name="file" value="" accept=".jpg,.png">Image</button>
-                                    <<img src="assets/img/post/${chosenPost.getImage()}" /> >
+                                <div >
+                                    Replace Image<br>
+                                    <input type="file" name="file"  accept=".jpg,.png"onchange="loadFile(event)"><br>
+                                    <div style="display: flex">
+
+                                        Old Image:<img style="width: 30%; height: 100%"  src="assets/img/post/${chosenPost.getImage()}">
+                                        <p style="width: 10%; height: 100%"></p>
+                                        New Image:<img style="width: 30%; height: 100%"id="preview-img" src="#">
+                                    </div>
+
                                 </div>
 
 
@@ -220,6 +235,15 @@
                                         demo.initDashboardPageCharts();
 
                                     });
+
+                                    function loadFile(event) {
+                                        var reader = new FileReader();
+                                        reader.onload = function () {
+                                            var img = document.getElementById('preview-img');
+                                            img.src = reader.result;
+                                        };
+                                        reader.readAsDataURL(event.target.files[0]);
+                                    }
             </script>
 
 

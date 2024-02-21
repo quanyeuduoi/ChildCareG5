@@ -74,25 +74,25 @@ public class PostManagementControll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PostDAO pd = new PostDAO();
-         ServiceDAO sd = new ServiceDAO();
+        ServiceDAO sd = new ServiceDAO();
         Service s = new Service();
         HttpSession session = request.getSession();
         Account m = (Account) session.getAttribute("Marketing");
         ArrayList<Post> postList = pd.getPostList();
         request.setAttribute("postList", postList);
-       
-        String ptid = request.getParameter("pid");
 
+        String ptid = request.getParameter("pid");
+        System.out.println(ptid);
         if (ptid != null) {
-            int id =Integer.parseInt(ptid);
+            int id = Integer.parseInt(ptid);
+            request.setAttribute("ptid", ptid);
             Post chosenPost = pd.getPostByID(id);
             request.setAttribute("chosenPost", chosenPost);
 
             ArrayList<Service> slist = sd.getServiceList();
             request.setAttribute("slist", slist);
-           request.getRequestDispatcher("EditPost.jsp").forward(request, response);
+            request.getRequestDispatcher("EditPost.jsp").forward(request, response);
         }
-      
 
         request.getRequestDispatcher("ManagePost.jsp").forward(request, response);
     }
@@ -109,28 +109,76 @@ public class PostManagementControll extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PostDAO pd = new PostDAO();
-       
+        ServiceDAO sd = new ServiceDAO();
+        Service s = new Service();
         HttpSession session = request.getSession();
         Account m = (Account) session.getAttribute("Marketing");
         String ac = request.getParameter("ac");
-        
-        if (ac != null) {
+        String ed = request.getParameter("ed");
+        if (ed != null) {
+            System.out.println("Edit");
+            String mid = request.getParameter("mid");
+            int id = Integer.parseInt(mid);
+            String op = request.getParameter("op");
+            System.out.println(op);
+            String ptilte = request.getParameter("title");
+            String pshort = request.getParameter("short");
+            String pdetail = request.getParameter("detail");
+            String sid = request.getParameter("service");
+            int pservice = Integer.parseInt(request.getParameter("service"));
+            Part filePart = request.getPart("file");
+            String fileName = filePart.getSubmittedFileName();
+            if (fileName != null&&fileName!="") {
+                String pathToFile = getServletContext().getRealPath("/") + "assets/img/post/" + fileName;
+                System.out.println("pathToFile: " + pathToFile);
+                String currentDirectory = System.getProperty("user.dir");
+                System.out.println("user.dir: " + currentDirectory);
+                String link = pathToFile = getServletContext().getRealPath("/") + "assets/img/post/" + fileName;
+                System.out.println(link + " " + fileName);
+                try {
+                    FileOutputStream fos = new FileOutputStream(link);
+                    InputStream is = filePart.getInputStream();
+                    byte[] data = new byte[is.available()];
+                    is.read(data);
+                    fos.write(data);
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String status = pd.editPost(pdetail, ptilte, pshort, fileName, pservice, id);
+                request.setAttribute("status", status);
+                request.getRequestDispatcher("EditPost.jsp").forward(request, response);
+            } else {
+                System.out.println("null");
+                String status = pd.editPost(pdetail, ptilte, pshort, op, pservice,id );
+                request.setAttribute("status", status);
+                request.getRequestDispatcher("EditPost.jsp").forward(request, response);
+            }
 
+            return;
+        }
+        if (ac != null) {
+            System.out.println("Create");
+            ArrayList<Service> slist = sd.getServiceList();
+            request.setAttribute("slist", slist);
             request.getRequestDispatcher("CreatePost.jsp").forward(request, response);
         }
         String ptilte = request.getParameter("title");
         String pshort = request.getParameter("short");
         String pdetail = request.getParameter("detail");
+        String sid = request.getParameter("service");
+
+        int pservice = Integer.parseInt(request.getParameter("service"));
 
         int mid = m.getAccountID();
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         if (filePart != null) {
-            String pathToFile = getServletContext().getRealPath("/") + "assets/img/post/"+ fileName;
+            String pathToFile = getServletContext().getRealPath("/") + "assets/img/post/" + fileName;
             System.out.println("pathToFile: " + pathToFile);
             String currentDirectory = System.getProperty("user.dir");
             System.out.println("user.dir: " + currentDirectory);
-            String link = pathToFile = getServletContext().getRealPath("/") + "assets/img/post/"+ fileName;
+            String link = pathToFile = getServletContext().getRealPath("/") + "assets/img/post/" + fileName;
             System.out.println(link + " " + fileName);
             try {
                 FileOutputStream fos = new FileOutputStream(link);
@@ -142,7 +190,7 @@ public class PostManagementControll extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            String status = pd.createPost(pdetail, ptilte, pshort, fileName, 1, mid);
+            String status = pd.createPost(pdetail, ptilte, pshort, fileName, pservice, mid);
             request.setAttribute("status", status);
             request.getRequestDispatcher("CreatePost.jsp").forward(request, response);
         } else {

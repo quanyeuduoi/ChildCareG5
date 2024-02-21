@@ -76,7 +76,26 @@ public class PostDAO {
         
          
      }
-    
+    public String editPost(String detail,String title,String pshort,String image,int serviceid,int mid) {
+         try {
+            String query = "update Post set Detail = ? ,ServiceID = ? , Image =?,PostTitlie=?,PostShort=? where PostID=?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, detail);
+            ps.setInt(2, serviceid);
+            ps.setString(3, image);
+            ps.setString(4, title);
+            ps.setString(5, pshort);
+            ps.setInt(6, mid);
+            ps.executeUpdate();
+            return "Edit Succesfully!";
+        } catch (Exception e) {
+             System.out.println("editPost:" +e.getMessage());
+             return "Edit Fail!";
+        }
+        
+         
+     }
 
     public ArrayList<Post> pagingList(int index) {
         ArrayList<Post> list = new ArrayList<Post>();
