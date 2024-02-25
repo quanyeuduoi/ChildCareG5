@@ -106,7 +106,8 @@ public class DAO {
                         rs.getString("password"),
                         rs.getString("role"),
                         rs.getString("otp"),
-                        rs.getString("fullName")
+                        rs.getString("fullName"),
+                        rs.getString("status")
                 );
             }
         } catch (Exception e) {
@@ -128,7 +129,8 @@ public class DAO {
                         rs.getString("password"),
                         rs.getString("role"),
                         rs.getString("otp"),
-                        rs.getString("fullName")
+                        rs.getString("fullName"),
+                        rs.getString("status")
                 );
             }
         } catch (Exception e) {

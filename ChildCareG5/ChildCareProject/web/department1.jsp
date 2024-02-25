@@ -174,7 +174,7 @@
                                             <button type="button" class="btn btn-sm btn-danger wrn-btn ml-2" background-color:#3FBBC0
                                                     color: #fff>Search</button>
                                         </div>
-                                    </div>
+                                    </div>       
                                 </div>
                             </div>
                         </div>

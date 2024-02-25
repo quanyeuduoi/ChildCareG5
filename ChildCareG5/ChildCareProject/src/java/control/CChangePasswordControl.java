@@ -56,7 +56,7 @@ public class CChangePasswordControl extends HttpServlet {
                 dao.setNotification(request, "New password do not match!");
                 request.getRequestDispatcher("changePass.jsp").forward(request, response);
             } else if (dao.validatePassword(conPass)) {
-                Account account1 = new Account(account.getAccountID(), email, conPass, account.getRole(), account.getOtp(), account.getFullName());
+                Account account1 = new Account(account.getAccountID(), email, conPass, account.getRole(), account.getOtp(), account.getFullName(),account.getStatus());
                 cdao.UpdatePassword(account1);
                 request.getSession().setAttribute("cus", account1);
 //                 response.sendRedirect("homepage.jsp");

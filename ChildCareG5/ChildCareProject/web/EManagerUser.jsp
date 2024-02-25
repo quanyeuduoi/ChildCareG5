@@ -14,7 +14,6 @@
         <link rel="icon" type="image/png" href="dash/assets/img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
-            G2 Banking  
         </title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
@@ -25,10 +24,49 @@
         <link href="dash/assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="dash/assets/demo/demo.css" rel="stylesheet" />
+        <style type="text/css">
+            .table-filter .filter-group {
+                float: right;
+                margin-left: 15px;
+            }
+            .table-filter input, .table-filter select {
+                height: 34px;
+                border-radius: 3px;
+                border-color: #ddd;
+                box-shadow: none;
+            }
+            .table-filter {
+                padding: 5px 0 15px;
+                border-bottom: 1px solid #e9e9e9;
+                margin-bottom: 5px;
+            }
+            .table-filter .btn {
+                height: 34px;
+                width: 34px;
+                padding: 0;
+            }
+            .table-filter label {
+                font-weight: normal;
+                margin-left: 10px;
+            }
+            .table-filter select, .table-filter input {
+                display: inline-block;
+                margin-left: 5px;
+
+            }
+            .table-filter input {
+                width: 200px;
+                display: inline-block;
+            }
+            .filter-group select.form-control {
+                width: 110px;
+            }
+
+        </style>
     </head>
     <body class="user-profile">
         <div class="wrapper ">
-            <jsp:include page="Left.jsp"></jsp:include>
+            <jsp:include page="Menu.jsp"></jsp:include>
                 <div class="main-panel" id="main-panel">
                     <!-- Navbar -->
                     <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
@@ -104,24 +142,59 @@
                                         <h5 class="title">Account Information</h5>
                                         <a href="EAddCustomer.jsp" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Add Account</a>
                                     </div>
+
+                                    <div class="table-filter">
+                                        <form action="manageuser" method="">
+                                        <div class="row">                                     
+                                                <div class="col-sm-10 d-flex justify-content-end align-items-center">
+                                                    <div class="filter-group">
+                                                        <label>Name</label>
+                                                        <input class="form-control" type="text" name="searchText" value="${param.searchText}">
+                                                    </div>
+                                                    <div class="filter-group">
+                                                        <label>Location</label>
+                                                        <select class="form-control" name="roleFilter">
+                                                            <option value="All" <c:if test="${param.roleFilter != 'All'}">selected</c:if>>Any</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Customer">Customer</option>
+                                                            <option value="Manager">Manager</option>
+                                                            <option value="Marketing">Marketing</option>
+                                                            <option value="Doctor">Doctor</option>								
+                                                        </select>
+                                                    </div>
+                                                    <div class="filter-group">
+                                                        <label>Status</label>
+                                                        <select class="form-control" name="statusFilter">
+                                                            <option value="All" <c:if test="${param.roleFilter != 'All'}">selected</c:if>>Any</option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                                </div>
+                                        </div>
+                                        </form>                    
+                                    </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table">
-                                                <thead class="text-primary">
-                                                <th>ID</th>
+                                                <thead class="text-primary">           
+                                                <th>Email</th>
                                                 <th>Name</th>
-                                                <th>Phone Number</th>
-                                                <th>Address</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
                                                 <th>Actions</th>
                                                 </thead>
                                                 <tbody>
                                                     <!-- Dữ liệu của người dùng sẽ được điền ở đây -->
-                                                <c:forEach items = "${Clist}" var = "o">
+                                                <c:forEach items = "${account}" var = "a">
                                                     <tr>
-                                                        <td>${o.customerID}</td>
-                                                        <td>${o.name}</td>
-                                                        <td>${o.phoneNumber}</td>
-                                                        <td>${o.address}</td>
+                                                        <td>${a.email}</td>
+                                                        <td>${a.fullname}</td>
+                                                        <td>${a.role}</td>
+                                                        <td>${a.status}</td>
                                                         <td>
                                                             <button class="btn btn-success btn-sm">Sửa</button>
                                                             <button class="btn btn-danger btn-sm">Xóa</button>

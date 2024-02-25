@@ -58,5 +58,11 @@ public class DepartmentDAO {
         return null;
     }
       
+    public static void main(String[] args) {
+        ArrayList<Department> list = new ArrayList();
+        DepartmentDAO dao = new DepartmentDAO();
+        list = dao.getDepartmentList();
+        System.out.println(list);
+    }
     
 }
