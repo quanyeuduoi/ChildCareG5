@@ -5,8 +5,7 @@
 
 package control;
 
-import dao.CustomerDAO;
-import dao.DAO;
+import dao.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Customer;
 
 /**
  *
- * @author ACER NQC0821
+ * @author Dell
  */
-
-public class CChangePasswordControl extends HttpServlet {
+@WebServlet(name="DeleteSliderControl", urlPatterns={"/DeleteSlider"})
+public class DeleteSliderControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,30 +29,15 @@ public class CChangePasswordControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {      
-////        String email = (String) request.getSession().getAttribute("email");
-////        String oldPass = (String) request.getSession().getAttribute("password");
-//	 String email = request.getParameter("email");
-//	 String oldPass = request.getParameter("oldPass");
-//	 String newPass = request.getParameter("newPass");
-//         String conPass = request.getParameter("conPass");
-//	 CustomerDAO dao = new CustomerDAO();
-//	 Customer cus = dao.CheckCustomerExist(email, oldPass);
-//	 if( cus == null){
-//            request.setAttribute("message","Information is incorrect!");
-//            request.getRequestDispatcher("changePass.jsp").forward(request,response);
-//	 }else{
-//             if(!newPass.equals(conPass)){
-//                request.setAttribute("message","New password do not match!");
-//                request.getRequestDispatcher("changePass.jsp").forward(request,response);
-//             }else{
-//                 Customer customer1 = new Customer(cus.getCustomerID(), email, newPass, cus.getFullName(), cus.getPhoneNumber(), cus.getAddress(), cus.getcOTP());
-//                 dao.UpdatePassword(customer1);
-//                 request.getSession().setAttribute("customer", customer1); 
-////                 response.sendRedirect("homepage.jsp");
-//             }//Ok
-//             request.getRequestDispatcher("homepage.jsp").forward(request,response);
-//         }  
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String sliderIDString = request.getParameter("sliderID");
+            int sliderID = Integer.parseInt(sliderIDString);
+            SliderDAO sliderDAO = new SliderDAO();
+            sliderDAO.deleteSlider(sliderID);
+            response.sendRedirect("SliderManagement");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +51,7 @@ public class CChangePasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);  
+        processRequest(request, response);
     } 
 
     /** 

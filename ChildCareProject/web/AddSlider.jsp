@@ -98,18 +98,18 @@
                                     </div>
                                     <p style="margin-left: 25px;" class="${messColor}">${mess}</p>
                                 <div class="card-body">
-                                    <form action="AddNews" method="post" enctype="multipart/form-data">
+                                    <form action="AddSlider" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="title">Title:</label>
                                             <select class="form-control" name="title">
                                                 <c:forEach items = "${postTitles}" var="o">
-                                                    <option>${o.getPostTitle()}</option>
+                                                    <option value="${o.getPostTitle()}">${o.getPostTitle()}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="file">Image:</label>
-                                            <input type="file" id="file" name="file">
+                                            <input type="file" id="file" name="file" onchange="previewImage(this)">
                                             <button type="button" onclick="document.getElementById('file').click()">Upload</button>
                                             <p id="fileNameDisplay"></p>
                                         </div>
@@ -171,22 +171,23 @@
         <script src="dash/assets/demo/demo.js"></script>
 
         <script>
-            function previewImage(input) {
-                var imagePreview = document.getElementById('imagePreview');
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+    function previewImage(input) {
+        var imagePreview = document.getElementById('imagePreview');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        imagePreview.src = e.target.result;
-                        imagePreview.style.display = 'block';
-                    };
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
 
-                    reader.readAsDataURL(input.files[0]);
-                } else {
-                    imagePreview.style display = 'none';
-                }
-            }
-        </script>
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imagePreview.style.display = 'none';
+        }
+    }
+</script>
+
         <script>
             document.getElementById('file').addEventListener('change', function (e) {
                 var fileName = e.target.files[0].name;

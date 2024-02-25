@@ -115,10 +115,23 @@ public class SliderDAO {
             ps.setString(1, title);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Post(rs.getInt(1),
-                        rs.getString(2));
+                return new Post(rs.getInt(1));
             }
         } catch (Exception e) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         return null;
     }
@@ -130,8 +143,7 @@ public class SliderDAO {
                 + "           ,[MarketingID]\n"
                 + "           ,[PostID])\n"
                 + "     VALUES\n"
-                + "           (?,?,?)"
-                + "GO";
+                + "           (?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -141,29 +153,79 @@ public class SliderDAO {
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         return null;
+    }
+
+    //Delete the slider
+    public void deleteSlider(int sliderID) {
+        String query = "DELETE FROM [dbo].[Slider]\n"
+                + "      WHERE SliderID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, sliderID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {
         // Khởi tạo đối tượng SliderDAO
         SliderDAO sliderDAO = new SliderDAO();
 
-        // Gọi phương thức getListAllSlider() để lấy danh sách slider
-        List<SliderList> sliders = sliderDAO.getListAllSlider();
-        List<Post> post = sliderDAO.getListPostTitle();
-
-        // In ra kết quả
-        for (SliderList slider : sliders) {
-            System.out.println("Slider ID: " + slider.getSliderID());
-            System.out.println("Image Slider: " + slider.getImageSlider());
-            System.out.println("Marketing Full Name: " + slider.getAuthor());
-            System.out.println("Post Title: " + slider.getTiltePost());
-            System.out.println("--------------------------------------");
-        }
-
-        for (Post p : post) {
-            System.out.println("Post Title: " + p.getPostTitle());
+//        // Gọi phương thức getListAllSlider() để lấy danh sách slider
+//        List<SliderList> sliders = sliderDAO.getListAllSlider();
+//        List<Post> post = sliderDAO.getListPostTitle();
+//
+//        // In ra kết quả
+//        for (SliderList slider : sliders) {
+//            System.out.println("Slider ID: " + slider.getSliderID());
+//            System.out.println("Image Slider: " + slider.getImageSlider());
+//            System.out.println("Marketing Full Name: " + slider.getAuthor());
+//            System.out.println("Post Title: " + slider.getTiltePost());
+//            System.out.println("--------------------------------------");
+//        }
+//
+//        for (Post p : post) {
+//            System.out.println("Post Title: " + p.getPostTitle());
+//        }
+        // Test hàm getPostIDByTitle
+        String titleToTest = "Title Post"; // Thay thế bằng tiêu đề muốn kiểm tra
+        Post postByID = sliderDAO.getPostIDByTitle(titleToTest);
+        if (postByID != null) {
+            System.out.println("Post ID for title '" + titleToTest + "' is: " + postByID.getPostID());
+        } else {
+            System.out.println("No post found with title: " + titleToTest);
         }
     }
 }

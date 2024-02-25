@@ -8,6 +8,10 @@
         <servlet-name>LogoutControl</servlet-name>
         <servlet-class>control.LogoutControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddSliderControl</servlet-name>
+        <servlet-class>control.AddSliderControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>LogoutControl</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSliderControl</servlet-name>
+        <url-pattern>/AddSlider</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

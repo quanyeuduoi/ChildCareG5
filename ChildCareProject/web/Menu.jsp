@@ -13,7 +13,7 @@
         -->
         <div class="logo">
             <a href="" class="simple-text logo-normal">
-                G2 Banking
+                ChildCare G5
             </a>
         </div>
         <div class="sidebar-wrapper" id="sidebar-wrapper">

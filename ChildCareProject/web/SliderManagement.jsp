@@ -112,7 +112,7 @@
                                                 <th>ID</th>
                                                 <th>Image</th>
                                                 <th>Author</th>
-                                                
+                                                <th>Post</th>
                                                 <th>Actions</th>
                                                 </thead>
                                                 <tbody>
@@ -125,7 +125,7 @@
                                                         <td>${o.getTiltePost()}</td>
                                                         <td>
                                                             <button class="btn btn-success btn-sm">Edit</button>
-                                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                                            <a href="DeleteSlider?sliderID=${o.getSliderID()}" class="btn btn-danger btn-sm">Delete</a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>

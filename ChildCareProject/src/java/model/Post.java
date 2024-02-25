@@ -43,6 +43,10 @@ public class Post {
         this.postTitle = postTitle;
     }
     
+    public Post(int postID) {
+        this.postID = postID;
+    }
+    
     public Post() {
          }
 
