@@ -16,6 +16,10 @@
         <servlet-name>AddNewUser</servlet-name>
         <servlet-class>control.AddNewUserControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetUserControl</servlet-name>
+        <servlet-class>control.SetUserControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>AddNewUser</servlet-name>
         <url-pattern>/addNewUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetUserControl</servlet-name>
+        <url-pattern>/setUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

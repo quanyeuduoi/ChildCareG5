@@ -78,6 +78,37 @@ public class AccountDAO {
         }
         return accounts;
     }
+        public Account getAccByID(int id) {
+        
+        String query = " SELECT [AccountID]\n"
+                + "      ,[Email]\n"
+                + "      ,[Password]\n"
+                + "      ,[Role]\n"
+                + "      ,[OTP]\n"
+                + "      ,[FullName]\n"
+                + "      ,[Status]\n"
+                + "  FROM [ChildCare].[dbo].[Account]"
+                + "  Where AccountID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7));
+                
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
 
     public ArrayList<Account> getAccountByRole(String role) {
         ArrayList<Account> accounts = new ArrayList<>();
@@ -210,7 +241,42 @@ public class AccountDAO {
         return null;
 
     }
+    public void setActive(Account account) {
     
+//            EmployeeDAO edao = new EmployeeDAO();
+//            edao.store(user);
+//            String sql = "UPDATE [dbo].[User]\n"
+//                    + "   SET [active] = 'false'\n"
+//                    + " WHERE id = ?";
+//            try {
+//                PreparedStatement pre = conn.prepareStatement(sql);
+//                pre.setInt(1, user.getId());
+//                affectedRows = pre.executeUpdate();
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+        String query = "UPDATE [dbo].[Account] SET [Status] = 'Active' WHERE [AccountID] = ?";
+        try{
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, account.getAccountID());
+            ps.executeUpdate(); 
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+        public void setInactive(Account account) {
+        String query = "UPDATE [dbo].[Account] SET [Status] = 'Idle' WHERE [AccountID] = ?";
+        try{
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, account.getAccountID());
+            ps.executeUpdate(); 
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();

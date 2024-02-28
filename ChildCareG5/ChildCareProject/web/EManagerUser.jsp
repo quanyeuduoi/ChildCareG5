@@ -150,6 +150,16 @@
                     <!-- End Navbar -->
                     <div class="panel-header panel-header-sm">
                     </div>
+                    <script>
+                    function toggleButton() {
+                    var button = document.getElementById("toggleButton");
+                    if (button.innerText === "Active") {
+                    button.innerText = "Inactive";
+                    } else {
+                    button.innerText = "Active";
+                    }
+                        }
+</script>
                     <div class="content">
                         <div class="row">
                             <div class="col-md-12">
@@ -207,24 +217,20 @@
 
                                                 <c:forEach items = "${account}" var = "a">
                                                     <tr>
+                                                        <td>${a.accountID}</td>
                                                         <td>${a.email}</td>
                                                         <td>${a.fullName}</td>
                                                         <td>${a.role}</td>
                                                         <td>${a.status}</td>
                                                         <td>
                                                             <button class="btn btn-success btn-sm">Sửa</button>
-                                                            <button class="btn btn-danger btn-sm">Xóa</button>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" type="button" id="dropdownMenuButton">
-                                                                    <i class="bx bx-dots-vertical-rounded me-2"></i>
-                                                                </button>
-                                                                <div class="dropdown-content">
-                                                                    <a class="dropdown-item" href="#">Suspend</a>
-                                                                    <a class="dropdown-item" href="#">Active</a>
-                                                                </div>
-                                                            </div>
-                                                    </tr>
-                                                </c:forEach>
+                                                            <button href="" class="btn btn-danger btn-sm">Xóa</button>                                                
+<!--                                                            <button href="setUser?accID=${a.accountID}" id="toggleButton" class="btn btn-danger btn-sm" onclick="toggleButton()">Active</button>-->
+<!--                                                            <button href="setUser?accID=${a.accountID}" class="btn btn-danger btn-sm">Action</button> -->
+                                                         <a href="setUser?accID=${a.accountID}" class="btn btn-danger btn-sm">Action</a>
+                                                        </td>    
+                                                    </tr>    
+                                            </c:forEach>
 
                                             </tbody>
                                         </table>

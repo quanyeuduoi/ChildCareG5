@@ -140,28 +140,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5 class="title">Add Customer</h5>
-                                </div>      
+                                    </div>      
                                 <div class="card-body">
                                     <script>
-//                                        document.addEventListener("DOMContentLoaded", function () {
-//                                            var selectElement = document.getElementById("selectC");
-//                                            selectElement.addEventListener("change", function () {
-//                                                var customerInfo = document.getElementById("customerInfo");
-//                                                customerInfo.style.display = (this.value === "1") ? "block" : "none";
-//                                            });
-//                                        });
-//                                        var el = document.getElementById("selectC");
-//                                        el.addEventListener("change", function () {
-//                                            var elems = document.querySelectorAll('#customerInfo,#doctorInfo');
-//                                            for (var i = 0; i < elems.length; i++) {
-//                                                elems[i].style.display = 'none';
-//                                            }
-//                                            if (this.selectedIndex === 0) {
-//                                                document.querySelector('#customerInfo').style.display = 'block';
-//                                            } else if (this.selectedIndex === 1) {
-//                                                document.querySelector('#doctorInfo').style.display = 'block';
-//                                            } 
-//                                        }, false);
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var selectElement = document.getElementById("selectC");
                                             selectElement.addEventListener("change", function () {
@@ -184,12 +165,6 @@
                                     </script>
                                     <!--form action start from here-->
                                     <form id="myForm" action="addNewUser" method="">
-                                        <c:if test="${notification != null}">
-                                         <div class="alert ">
-                                            <strong>Warming! ${notification}</strong>
-                                            <%session.removeAttribute("notification");%>
-                                         </div>
-                                        </c:if>
                                         <div class="row">
                                             <div class="col-md-2 pr-1">
                                                 <div class="form-group">
