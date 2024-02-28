@@ -12,6 +12,10 @@
         <servlet-name>ManageUserControl</servlet-name>
         <servlet-class>control.ManageUserControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddNewUser</servlet-name>
+        <servlet-class>control.AddNewUserControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ManageUserControl</servlet-name>
         <url-pattern>/manageuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewUser</servlet-name>
+        <url-pattern>/addNewUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

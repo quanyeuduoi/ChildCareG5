@@ -31,9 +31,9 @@
                 if (role != null && role.equals("Admin")) {
                 %>
                 <li>
-                    <a href="testaccountmanage.jsp">
+                    <a href="manageuser">
                         <i class="now-ui-icons design_bullet-list-67"></i>
-                        <p>Customer managemt</p>
+                        <p>Customer management</p>
                     </a>
                 </li>
                 <li>

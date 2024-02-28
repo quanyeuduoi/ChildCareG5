@@ -62,6 +62,22 @@
                 width: 110px;
             }
 
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+                background-color: #f9f9f9;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+                background-color: #e5e5e5;
+            }
         </style>
     </head>
     <body class="user-profile">
@@ -145,17 +161,17 @@
 
                                     <div class="table-filter">
                                         <form action="manageuser" method="">
-                                        <div class="row">                                     
+                                            <div class="row">                                     
                                                 <div class="col-sm-10 d-flex justify-content-end align-items-center">
                                                     <div class="filter-group">
                                                         <label>Name</label>
                                                         <input class="form-control" type="text" name="searchText" value="${param.searchText}">
-                                                    </div>
-                                                    <div class="filter-group">
-                                                        <label>Location</label>
-                                                        <select class="form-control" name="roleFilter">
-                                                            <option value="All" <c:if test="${param.roleFilter != 'All'}">selected</c:if>>Any</option>
-                                                            <option value="Admin">Admin</option>
+                                                </div>
+                                                <div class="filter-group">
+                                                    <label>Location</label>   
+                                                    <select class="form-control" name="roleFilter"> 
+                                                <!-- <div><c:if test="${param.roleFilter != 'All'}">selected</c:if></div>-->
+                                                            <option value="">Any</option>
                                                             <option value="Customer">Customer</option>
                                                             <option value="Manager">Manager</option>
                                                             <option value="Marketing">Marketing</option>
@@ -165,16 +181,16 @@
                                                     <div class="filter-group">
                                                         <label>Status</label>
                                                         <select class="form-control" name="statusFilter">
-                                                            <option value="All" <c:if test="${param.roleFilter != 'All'}">selected</c:if>>Any</option>
+                                                            <option value="">Any</option>
                                                             <option value="Active">Active</option>
-                                                            <option value="Inactive">Inactive</option>
+                                                            <option value="Idle">Idle</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                                 </div>
-                                        </div>
+                                            </div>
                                         </form>                    
                                     </div>
                                     <div class="card-body">
@@ -188,20 +204,28 @@
                                                 <th>Actions</th>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- Dữ liệu của người dùng sẽ được điền ở đây -->
+
                                                 <c:forEach items = "${account}" var = "a">
                                                     <tr>
                                                         <td>${a.email}</td>
-                                                        <td>${a.fullname}</td>
+                                                        <td>${a.fullName}</td>
                                                         <td>${a.role}</td>
                                                         <td>${a.status}</td>
                                                         <td>
                                                             <button class="btn btn-success btn-sm">Sửa</button>
                                                             <button class="btn btn-danger btn-sm">Xóa</button>
-                                                        </td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" type="button" id="dropdownMenuButton">
+                                                                    <i class="bx bx-dots-vertical-rounded me-2"></i>
+                                                                </button>
+                                                                <div class="dropdown-content">
+                                                                    <a class="dropdown-item" href="#">Suspend</a>
+                                                                    <a class="dropdown-item" href="#">Active</a>
+                                                                </div>
+                                                            </div>
                                                     </tr>
                                                 </c:forEach>
-                                                <!--Thêm dữ liệu người dùng khác ở đây -->
+
                                             </tbody>
                                         </table>
                                     </div>

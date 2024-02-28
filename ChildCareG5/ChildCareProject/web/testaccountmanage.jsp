@@ -26,11 +26,11 @@
             <tbody>
                 <c:forEach var="acc" items="${account}" >
                     <tr>
-                        <td><${acc.accountID}></td>
-                        <td><${acc.email}</td>
-                        <td><${acc.fullName}</td>
-                        <td><${acc.role}</td>
-                        <td><${acc.status}</td>
+                        <td>${acc.accountID}</td>
+                        <td>${acc.email}</td>
+                        <td>${acc.fullName}</td>
+                        <td>${acc.role}</td>
+                        <td>${acc.status}</td>
                     </tr>     
                 </c:forEach>    
             </tbody>
