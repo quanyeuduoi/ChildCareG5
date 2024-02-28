@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>Medicio Bootstrap Template - Index</title>
+        <title>ChildCare G5 | Home</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
 
@@ -134,17 +134,17 @@
                 <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
                 <div class="carousel-inner" role="listbox">
-
+                    <c:forEach items = "${sliderList}" var = "o">
                     <!-- Slide 1 -->
-                    <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
+                    <div class="carousel-item active" style="background-image: url(Image/SliderImage/${o.getImageSlider()})">
                         <div class="container">
-                            <h2>Welcome to <span>Medicio</span></h2>
-                            <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
+                            <h2>${o.getTiltePost()}</span></h2>
+<!--                            <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>-->
                             <a href="#about" class="btn-get-started scrollto">Read More</a>
                         </div>
                     </div>
-
-                    <!-- Slide 2 -->
+                    </c:forEach>
+<!--                     Slide 2 
                     <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
                         <div class="container">
                             <h2>Lorem Ipsum Dolor</h2>
@@ -153,14 +153,14 @@
                         </div>
                     </div>
 
-                    <!-- Slide 3 -->
+                     Slide 3 
                     <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
                         <div class="container">
                             <h2>Sequi ea ut et est quaerat</h2>
                             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
                             <a href="#about" class="btn-get-started scrollto">Read More</a>
                         </div>
-                    </div>
+                    </div>-->   
 
                 </div>
 

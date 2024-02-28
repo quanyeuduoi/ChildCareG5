@@ -16,6 +16,10 @@
         <servlet-name>EditSliderControl</servlet-name>
         <servlet-class>control.EditSliderControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>control.HomeControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/ControlServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>EditSliderControl</servlet-name>
         <url-pattern>/EditSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/Home</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
