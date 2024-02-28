@@ -113,9 +113,12 @@ public class AddSliderControl extends HttpServlet {
                 e.printStackTrace();
             }
             sliderDAO.addSlider(fileName, marketingID, postID);
+            String message = "Add new slider succssefully.";
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("AddSlider.jsp").forward(request, response);
             response.sendRedirect("SliderManagement");
         } else {
-            String message = "null image";
+            String message = "Null image";
             request.setAttribute("message", message);
             request.getRequestDispatcher("AddSlider.jsp").forward(request, response);
         }

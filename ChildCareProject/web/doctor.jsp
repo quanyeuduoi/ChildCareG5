@@ -124,9 +124,9 @@
                             <!-- Search Bar and Button -->
                             <div class="row">
                                 <div class="col-lg-6 offset-lg-3">
-                                    <form action="searchDoctor" method="GET">
+                                    <form action="searchDoctor" method="POST">
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Input Doctor's name you want to find here." value="${txtFullnameSearch}" name="txtFullnameSearch">
+                                            <input type="text" class="form-control" placeholder="Input Doctor's name you want to find here." value="${requestScope.txtFullnameSearch}" name="txtFullnameSearch">
                                             <button class="appointment-btn scrollto" type="submit">
                                                 <span class="d-none d-md-inline"><i class="bi bi-search"></i></span>
                                             </button>

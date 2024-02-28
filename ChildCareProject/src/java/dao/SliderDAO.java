@@ -199,6 +199,127 @@ public class SliderDAO {
         }
     }
 
+    //Edit slider
+    public void editSlider(String imageSlider, int marketingID, int postID, int sliderID) {
+        String query = "UPDATE [dbo].[Slider]\n"
+                + "   SET [ImageSlider] = ?\n"
+                + "      ,[MarketingID] = ?\n"
+                + "      ,[PostID] = ?\n"
+                + " WHERE [SliderID] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, imageSlider);
+            ps.setInt(2, marketingID);
+            ps.setInt(3, postID);
+            ps.setInt(4, sliderID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    //Get slider information by sliderID
+    public SliderList getSliderByID(int sliderID) {
+        String query = "SELECT S.SliderID, S.ImageSlider,  A.FullName AS MarketingFullName, P.PostTitle AS PostTitle FROM Slider S\n"
+                + "             INNER JOIN \n"
+                + "             Marketing M ON S.MarketingID = M.MarketingID\n"
+                + "             INNER JOIN\n"
+                + "             Account A ON M.MarketingID = A.AccountID\n"
+                + "             INNER JOIN\n"
+                + "             Post P ON S.PostID = P.PostID\n"
+                + "Where SliderID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, sliderID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new SliderList(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4)
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    //Search slider by post's title
+    public List<SliderList> searchSliderByTitle(String txtSearch) {
+        List<SliderList> sliders = new ArrayList<>();
+        String query = "SELECT S.SliderID, S.ImageSlider,  A.FullName AS MarketingFullName, P.PostTitle AS PostTitle FROM Slider S\n"
+                + "             INNER JOIN \n"
+                + "             Marketing M ON S.MarketingID = M.MarketingID\n"
+                + "             INNER JOIN\n"
+                + "             Account A ON M.MarketingID = A.AccountID\n"
+                + "             INNER JOIN\n"
+                + "             Post P ON S.PostID = P.PostID\n"
+                + "Where PostTitle like ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + txtSearch + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                SliderList slider = new SliderList();
+                slider.setSliderID(rs.getInt("SliderID"));
+                slider.setImageSlider(rs.getString("ImageSlider"));
+                slider.setAuthor(rs.getString("MarketingFullName"));
+                slider.setTiltePost(rs.getString("PostTitle"));
+                sliders.add(slider);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return sliders;
+    }
+        
+
     public static void main(String[] args) {
         // Khởi tạo đối tượng SliderDAO
         SliderDAO sliderDAO = new SliderDAO();

@@ -49,74 +49,79 @@
                                 <span class="navbar-toggler-bar navbar-kebab"></span>
                             </button>
                             <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                                <form>
+                                <form action="SearchSliderManager" method="POST">
                                     <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search...">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                            </div>
-                                        </div>
+                                        <input name="txtSearch" type="text" value="${requestScope.txtSearch}" class="form-control" placeholder="Search...">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="input-group-text" style="background-color: transparent; border: none;">
+                                            <i class="now-ui-icons ui-1_zoom-bold"></i>
+                                        </button>
                                     </div>
-                                </form>
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#pablo">
-                                            <i class="now-ui-icons media-2_sound-wave"></i>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Stats</span>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="now-ui-icons location_world"></i>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Some Actions</span>
-                                            </p>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#pablo">
-                                            <i class="now-ui-icons users_single-02"></i>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Account</span>
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                </div>
+                            </form>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#pablo">
+                                        <i class="now-ui-icons media-2_sound-wave"></i>
+                                        <p>
+                                            <span class="d-lg-none d-md-block">Stats</span>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="now-ui-icons location_world"></i>
+                                        <p>
+                                            <span class="d-lg-none d-md-block">Some Actions</span>
+                                        </p>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="now-ui-icons users_single-02"></i>
+                                        <p>
+                                            <span class="d-lg-none d-md-block">Account</span>
+                                        </p>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="LoginRegister.jsp">Login</a>
+                                        <a class="dropdown-item" href="#">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </nav>
-                    <!-- End Navbar -->
-                    <div class="panel-header panel-header-sm">
                     </div>
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="title">Slider Information</h5>
-                                        <a href="HomePage.jsp" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Home page</a>
-                                        <a href="AddSlider" class="btn btn-primary btn-sm float-right" style="margin-left: -40px;">Add Slider</a>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="text-primary">
-                                                <th>ID</th>
-                                                <th>Image</th>
-                                                <th>Author</th>
-                                                <th>Post</th>
-                                                <th>Actions</th>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Dữ liệu của người dùng sẽ được điền ở đây -->
+                </nav>
+                <!-- End Navbar -->
+                <div class="panel-header panel-header-sm">
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="title">Slider Information</h5>
+                                    <a href="AddSlider" class="btn btn-primary btn-sm float-right" style="margin-left: -40px;">Add Slider</a>
+                                </div>
+                                <p style="margin-left: 25px;" class="${messColor}">${message}</p>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="text-primary">
+                                            <th>ID</th>
+                                            <th>Image</th>
+                                            <th>Author</th>
+                                            <th>Post</th>
+                                            <th>Actions</th>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dữ liệu của người dùng sẽ được điền ở đây -->
                                                 <c:forEach items = "${sliderList}" var = "o">
                                                     <tr>
                                                         <td>${o.getSliderID()}</td>
@@ -124,7 +129,7 @@
                                                         <td>${o.getAuthor()}</td>
                                                         <td>${o.getTiltePost()}</td>
                                                         <td>
-                                                            <button class="btn btn-success btn-sm">Edit</button>
+                                                            <a href="EditSlider?sliderID=${o.getSliderID()}" class="btn btn-success btn-sm">Edit</a>
                                                             <a href="DeleteSlider?sliderID=${o.getSliderID()}" class="btn btn-danger btn-sm">Delete</a>
                                                         </td>
                                                     </tr>
