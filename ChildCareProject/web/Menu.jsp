@@ -19,6 +19,12 @@
         <div class="sidebar-wrapper" id="sidebar-wrapper">
             <ul class="nav">
                 <li>
+                    <a href="Home">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Home</p>
+                    </a>
+                </li>
+                <li>
                     <a href="./Dashboard.jsp">
                         <i class="now-ui-icons design_app"></i>
                         <p>Dashboard</p>
