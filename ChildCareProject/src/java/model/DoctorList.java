@@ -14,6 +14,7 @@ public class DoctorList {
     private String fullName;
     private String email;
     private String departName;
+    private String doctorPicture;
 
     public DoctorList() {
     }
@@ -24,6 +25,22 @@ public class DoctorList {
         this.fullName = fullName;
         this.email = email;
         this.departName = departName;
+    }
+    public DoctorList(int docID, int age, String fullName, String email, String departName, String doctorPicture) {
+        this.docID = docID;
+        this.age = age;
+        this.fullName = fullName;
+        this.email = email;
+        this.departName = departName;
+        this.doctorPicture = doctorPicture;
+    }
+
+    public String getDoctorPicture() {
+        return doctorPicture;
+    }
+
+    public void setDoctorPicture(String doctorPicture) {
+        this.doctorPicture = doctorPicture;
     }
 
     public int getDocID() {

@@ -4,7 +4,8 @@
  */
 package control;
 
-import dao.SliderDAO;
+import com.google.gson.Gson;
+import dao.ManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,15 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import model.SliderList;
 
 /**
  *
  * @author Dell
  */
-@WebServlet(name="HomeControl", urlPatterns={"/home"})
-public class HomeControl extends HttpServlet {
+@WebServlet(name = "GetSlotsByDate", urlPatterns = {"/GetSlotsByDate"})
+public class GetSlotsByDate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +42,10 @@ public class HomeControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeControl</title>");
+            out.println("<title>Servlet GetSlotsByDate</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetSlotsByDate at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,10 +63,7 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SliderDAO sliderDAO = new SliderDAO();
-        List<SliderList> sliderList = sliderDAO.getListAllSlider();
-        request.setAttribute("sliderList", sliderList);
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -77,7 +77,33 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Lấy ngày và docID từ yêu cầu
+        String selectedDateStr = request.getParameter("selectedDate");
+        int docID = Integer.parseInt(request.getParameter("docID"));
+
+        // Parse selectedDateStr into a Date object
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date selectedDate = null;
+        try {
+            selectedDate = sdf.parse(selectedDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Handle parsing exception
+            return; // Return if parsing fails
+        }
+
+        ManagerDAO mdDAO = new ManagerDAO();
+        // Gọi phương thức trong DAO để lấy danh sách các khe trống
+        List<String> slots = mdDAO.getAllSlotByDay(docID, selectedDateStr);
+
+        // Chuyển danh sách khe trống thành định dạng JSON
+        Gson gson = new Gson();
+        String jsonSlots = gson.toJson(slots);
+
+        // Gửi dữ liệu JSON về cho trình duyệt
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonSlots);
+
     }
 
     /**

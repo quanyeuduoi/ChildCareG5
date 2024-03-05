@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="file">Image:</label>
-                                            <input type="file" id="file" name="file" onchange="previewImage(this)">
+                                            <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(this)">
                                             <button type="button" onclick="document.getElementById('file').click()">Upload</button>
                                             <p id="fileNameDisplay"></p>
                                         </div>
