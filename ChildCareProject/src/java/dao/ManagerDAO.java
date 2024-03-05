@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DoctorList;
 import model.DoctorSchedule;
+import model.Slot;
 
 /**
  *
@@ -26,9 +27,9 @@ public class ManagerDAO {
 
     public List<DoctorSchedule> getSchedulesByDocID(int docID) {
         List<DoctorSchedule> doctorSchedules = new ArrayList<>();
-        String query = "SELECT DSL.DocID, S.Date, S.Slot\n"
-                + "FROM DoctorSchedueList DSL\n"
-                + "JOIN Schedue S ON DSL.SchueduleID = S.SchueduleID where DSL.DocID = ?";
+        String query = "SELECT DocID, Date, Slot\n"
+                + "            FROM Schedue \n"
+                + "            WHERE DocID =  ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -61,13 +62,13 @@ public class ManagerDAO {
         return doctorSchedules;
     }
 
-    public List<String> getAllSlotByDay(int docID, String date) {
-        List<String> slotTimes = new ArrayList<>();
-        String query = "SELECT sl.TimeSlot\n"
-                + "FROM DoctorSchedueList DSL\n"
-                + "JOIN Schedue S ON DSL.SchueduleID = S.SchueduleID\n"
-                + "JOIN Slot sl ON S.Slot = sl.SlotID\n"
-                + "WHERE DSL.DocID = ? AND CONVERT(DATE, S.Date) = ?";
+    //Lấy slot theo ngày ở trang doctorScheduleManagement
+    public List<Slot> getAllSlotByDay(int docID, String date) {
+        List<Slot> slotTimes = new ArrayList<>();
+        String query = "SELECT sl.SlotID, sl.TimeSlot\n"
+                + "                FROM Schedue S\n"
+                + "                JOIN Slot sl ON S.Slot = sl.SlotID\n"
+                + "                WHERE S.DocID = ? AND CONVERT(DATE, S.Date) = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -75,7 +76,44 @@ public class ManagerDAO {
             ps.setString(2, date);
             rs = ps.executeQuery();
             while (rs.next()) {
-                slotTimes.add(rs.getString("TimeSlot"));
+                Slot slotTime = new Slot();
+                slotTime.setSlotID(rs.getInt("SlotID"));
+                slotTime.setTimeSlot(rs.getString("TimeSlot"));
+                slotTimes.add(slotTime);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return slotTimes;
+    }
+
+    //Lấy tất cả slot cho việc edit slot
+    public List<Slot> getAllSlot() {
+        List<Slot> slotTimes = new ArrayList<>();
+        String query = "Select SlotID, TimeSlot from Slot";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Slot slotTime = new Slot();
+                slotTime.setSlotID(rs.getInt("SlotID"));
+                slotTime.setTimeSlot(rs.getString("TimeSlot"));
+                slotTimes.add(slotTime);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,15 +197,16 @@ public class ManagerDAO {
         String date = "2024-02-27"; // Thay đổi date theo nhu cầu
 
 // Gọi hàm getAllSlotByDay để lấy danh sách khe trống
-        List<String> slotTimes = doctorDAO.getAllSlotByDay(docID, date);
+        List<Slot> slotTimes = doctorDAO.getAllSlotByDay(docID, date);
 
 // In ra danh sách khe trống
         if (slotTimes.isEmpty()) {
             System.out.println("Không có khe trống cho bác sĩ có ID " + docID + " vào ngày " + date);
         } else {
             System.out.println("Danh sách khe trống cho bác sĩ có ID " + docID + " vào ngày " + date + ":");
-            for (String slotTime : slotTimes) {
-                System.out.println(slotTime);
+            for (Slot slotTime : slotTimes) {
+                System.out.println(slotTime.getSlotID());
+                System.out.println(slotTime.getTimeSlot());
             }
         }
 

@@ -25,6 +25,33 @@
         <link href="dash/assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="dash/assets/demo/demo.css" rel="stylesheet" />
+        <style>
+            /* CSS cho checkbox tùy chỉnh */
+            .button-checkbox-group {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .button-checkbox {
+                display: inline-block;
+                cursor: pointer;
+                margin-right: 10px; /* Khoảng cách giữa các checkbox */
+                margin-bottom: 10px; /* Khoảng cách giữa các dòng */
+                padding: 8px 16px; /* Kích thước của button */
+                border: 1px solid #ccc; /* Viền của button */
+                border-radius: 4px; /* Độ cong của viền */
+            }
+
+            /* Khi checkbox được kiểm tra, thay đổi màu viền của button */
+            .button-checkbox input:checked + label {
+                border-color: yellow; /* Màu viền của button khi được chọn */
+            }
+
+            /* Khi di chuột qua button, thay đổi màu nền của button */
+            .button-checkbox:hover {
+                background-color: #f0f0f0; /* Màu nền của button khi di chuột qua */
+            }
+        </style>
     </head>
     <body class="user-profile">
         <div class="wrapper ">
@@ -114,15 +141,29 @@
                                     <div class="table-responsive">
                                         <form action="EditDoctorSchedule" method="POST" enctype="multipart/form-data">
                                             <div class="form-group">
-                                            <label for="doctor">Choose doctor to edit:</label>
-                                            <select id="doctor" class="form-control" name="doctor">
-                                                <c:forEach items = "${dlist}" var="o">
-                                                    <option value="${o.docID}">${o.fullName}</option>
-                                                </c:forEach>
-                                            </select>
-                                            From: <input type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')">
-                                            To: <input type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')">
-                                        </div>
+                                                <label for="doctor">Choose doctor to edit:</label>
+                                                <select id="doctor" class="form-control" name="doctor">
+                                                    <c:forEach items = "${dlist}" var="o">
+                                                        <option value="${o.docID}">${o.fullName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <div class="form-group">
+                                                    From: <input class="form-control" type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label>Select Slots:</label><br>
+                                                        <div class="button-checkbox-group">
+                                                            <c:forEach items="${slotTimes}" var="o">
+                                                                <input type="checkbox" id="slot_${o.slotID}" name="slots" value="${o.slotID}" onchange="changeButtonColor(this)">
+                                                                <label for="slot_${o.slotID}" class="button-checkbox">${o.timeSlot}</label>
+                                                            </c:forEach>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -162,8 +203,19 @@
         </div>
         <script src="dash/assets/js/core/jquery.min.js"></script>
         <script>
-                                // Hàm xử lý khi thay đổi ngày
-                                function getSlotsByDate(input, docID) {
+                                function changeCheckboxColor(checkbox) {
+                                    // Kiểm tra trạng thái của checkbox
+                                    if (checkbox.checked) {
+                                        checkbox.parentNode.style.color = "yellow"; // Thay đổi màu chữ của label khi checkbox được kiểm tra
+                                    } else {
+                                        checkbox.parentNode.style.color = "#000"; // Màu chữ mặc định khi checkbox không được kiểm tra
+                                    }
+                                }
+        </script>
+
+        <script>
+            // Hàm xử lý khi thay đổi ngày
+            function getSlotsByDate(input, docID) {
                                     var selectedDate = input.value;
                                     var xhr = new XMLHttpRequest();
                                     xhr.open('POST', 'GetSlotsByDate', true);
@@ -174,15 +226,32 @@
                                             var slotsHtml = ""; // Biến để lưu HTML cho slots
                                             // Duyệt qua danh sách slots và tạo HTML tương ứng
                                             for (var i = 0; i < slots.length; i++) {
-                                                slotsHtml += "<p id='slot'>" + slots[i] + "</p>";
+                                                slotsHtml = lots[i].slotID ;
                                             }
-                                            // Hiển thị HTML vào slot
-                                            document.getElementById("result_" + docID).innerHTML = slotsHtml;
+                                            markCheckboxBySlotIDs(slotsHtml);
                                         }
                                     };
                                     event.preventDefault();
                                     xhr.send('selectedDate=' + selectedDate + '&docID=' + docID);
                                 }
+
+            function markCheckboxBySlotIDs(slotIDs) {
+                // Lặp qua danh sách slot IDs và đánh dấu các checkbox tương ứng
+                slotIDs.forEach(function (slotID) {
+                    var checkbox = document.getElementById(slotID);
+                    if (checkbox) {
+                        checkbox.checked = true; // Đánh dấu checkbox
+                        changeCheckboxColor(checkbox); // Thay đổi màu của label đi kèm checkbox
+                    }
+                });
+            }
+            window.onload = function () {
+                var selectedDateInput = document.querySelector('input[name="date"]');
+                var selectedDate = selectedDateInput.value;
+                var docID = document.getElementById('doctor').value; // Assume doctor select box exists
+                getSlotsByDate(selectedDateInput, docID);
+            };
+
         </script>
         <script src="dash/assets/js/core/popper.min.js"></script>
         <script src="dash/assets/js/core/bootstrap.min.js"></script>

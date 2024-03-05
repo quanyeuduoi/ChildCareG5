@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.DoctorList;
+import model.Slot;
 
 /**
  *
@@ -59,8 +60,10 @@ public class EditDocScheduleControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         ManagerDAO mdDAO = new ManagerDAO();
+        List<Slot> slotTimes = mdDAO.getAllSlot();
         List<DoctorList> dlist = mdDAO.getAllDoctorsForManager();
         request.setAttribute("dlist",dlist);
+        request.setAttribute("slotTimes",slotTimes);
         request.getRequestDispatcher("EditDoctorSchedule.jsp").forward(request, response);
     } 
 

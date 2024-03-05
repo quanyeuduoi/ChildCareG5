@@ -17,6 +17,7 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import model.Slot;
 
 /**
  *
@@ -93,7 +94,7 @@ public class GetSlotsByDate extends HttpServlet {
 
         ManagerDAO mdDAO = new ManagerDAO();
         // Gọi phương thức trong DAO để lấy danh sách các khe trống
-        List<String> slots = mdDAO.getAllSlotByDay(docID, selectedDateStr);
+        List<Slot> slots = mdDAO.getAllSlotByDay(docID, selectedDateStr);
 
         // Chuyển danh sách khe trống thành định dạng JSON
         Gson gson = new Gson();

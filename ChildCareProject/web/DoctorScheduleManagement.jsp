@@ -123,7 +123,7 @@
                                                         <td>${o.fullName}</td>
                                                         <td>${o.departName}</td>
                                                         <td><img src="Image/DoctorAvatar/${o.doctorPicture}" alt="Not found image" style="max-width: 250px; "></td>
-                                                        <td><input type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')"></td>
+                                                        <td><input class="form-control" type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')"></td>
                                                         <td>
                                                             <div id="result_${o.docID}"></div>
                                                         </td>
@@ -185,7 +185,7 @@
                                             var slotsHtml = ""; // Biến để lưu HTML cho slots
                                             // Duyệt qua danh sách slots và tạo HTML tương ứng
                                             for (var i = 0; i < slots.length; i++) {
-                                                slotsHtml += "<p id='slot'>" + slots[i] + "</p>";
+                                                slotsHtml += "<p id='slot'>" + slots[i].timeSlot + "</p>";
                                             }
                                             // Hiển thị HTML vào slot
                                             document.getElementById("result_" + docID).innerHTML = slotsHtml;
