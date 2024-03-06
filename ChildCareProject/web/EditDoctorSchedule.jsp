@@ -128,7 +128,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="title">Edit</h5>
-                                    <a href="DoctorScheduleManagement" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Back</a>
+                                    <a href="ScheduleManager" class="btn btn-primary btn-sm float-right" style="margin-top: -40px;">Back</a>
                                 </div>
                                 <p style="margin-left: 25px;" class="${messColor}">${message}</p>
                                 <div class="card-body">

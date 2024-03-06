@@ -178,7 +178,7 @@ public class ManagerDAO {
     }
 
     //Sửa lịch cho bác sĩ
-    public void editSchedule(String date, int slotID, int reservationID, int docID) {
+    public void editSchedule(String date, int slotID, String reservationID, int docID) {
         String query = "UPDATE [dbo].[Schedue]\n"
                 + "   SET [Date] = ?\n"
                 + "      ,[Slot] = ?\n"
@@ -189,7 +189,7 @@ public class ManagerDAO {
             ps = conn.prepareStatement(query);
             ps.setString(1, date);
             ps.setInt(2, slotID);
-            ps.setInt(3, reservationID);
+            ps.setString(3, reservationID);
             ps.setInt(4, docID);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -212,7 +212,7 @@ public class ManagerDAO {
     }
 
     //Thêm lịch mới cho doctor
-    public DoctorSchedule addSchedule(String date, int slotID, int reservationID, int docID) {
+    public DoctorSchedule addSchedule(String date, int slotID, String reservationID, int docID) {
         String query = "INSERT INTO [dbo].[Schedue]\n"
                 + "           ([Date]\n"
                 + "           ,[Slot]\n"
@@ -225,7 +225,7 @@ public class ManagerDAO {
             ps = conn.prepareStatement(query);
             ps.setString(1, date);
             ps.setInt(2, slotID);
-            ps.setInt(3, reservationID);
+            ps.setString(3, reservationID);
             ps.setInt(4, docID);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -249,13 +249,14 @@ public class ManagerDAO {
     }
     
     //Xóa lịch bác sĩ 
-    public void deleteSchedule(int docID) {
+    public void deleteSchedule(int docID, int slot) {
         String query = "DELETE FROM [dbo].[Schedue]\n"
-                + "      WHERE [DocID] = ?";
+                + "      WHERE [DocID] = ? and [Slot] = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, docID);
+            ps.setInt(2, slot);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -90,15 +90,6 @@ public class GetSlotsByDate extends HttpServlet {
         }
         System.out.println(selectedDateStr);
         System.out.println(docID);
-        // Parse selectedDateStr into a Date object
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date selectedDate = null;
-        try {
-            selectedDate = sdf.parse(selectedDateStr);
-        } catch (ParseException e) {
-            e.printStackTrace(); // Handle parsing exception
-            return; // Return if parsing fails
-        }
         ManagerDAO mdDAO = new ManagerDAO();
         // Gọi phương thức trong DAO để lấy danh sách các khe trống
         List<Slot> slots = mdDAO.getAllSlotByDay(docID, selectedDateStr);
