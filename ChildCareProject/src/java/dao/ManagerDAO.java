@@ -177,6 +177,105 @@ public class ManagerDAO {
         return doctors;
     }
 
+    //Sửa lịch cho bác sĩ
+    public void editSchedule(String date, int slotID, int reservationID, int docID) {
+        String query = "UPDATE [dbo].[Schedue]\n"
+                + "   SET [Date] = ?\n"
+                + "      ,[Slot] = ?\n"
+                + "      ,[ReservationID] = ?\n"
+                + " WHERE [DocID] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, date);
+            ps.setInt(2, slotID);
+            ps.setInt(3, reservationID);
+            ps.setInt(4, docID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    //Thêm lịch mới cho doctor
+    public DoctorSchedule addSchedule(String date, int slotID, int reservationID, int docID) {
+        String query = "INSERT INTO [dbo].[Schedue]\n"
+                + "           ([Date]\n"
+                + "           ,[Slot]\n"
+                + "           ,[ReservationID]\n"
+                + "           ,[DocID])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, date);
+            ps.setInt(2, slotID);
+            ps.setInt(3, reservationID);
+            ps.setInt(4, docID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+    //Xóa lịch bác sĩ 
+    public void deleteSchedule(int docID) {
+        String query = "DELETE FROM [dbo].[Schedue]\n"
+                + "      WHERE [DocID] = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, docID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         ManagerDAO doctorDAO = new ManagerDAO();
 

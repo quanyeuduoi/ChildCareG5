@@ -1,9 +1,3 @@
-<%-- 
-    Document   : EManagerUser
-    Created on : Sep 26, 2023, 12:35:20 PM
-    Author     : Dell
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -139,10 +133,10 @@
                                 <p style="margin-left: 25px;" class="${messColor}">${message}</p>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <form action="EditDoctorSchedule" method="POST" enctype="multipart/form-data">
+                                        <form action="EditSchedule" method="POST">
                                             <div class="form-group">
                                                 <label for="doctor">Choose doctor to edit:</label>
-                                                <select id="doctor" class="form-control" name="doctor">
+                                                <select id="doctor" class="form-control" name="docID">
                                                     <c:forEach items = "${dlist}" var="o">
                                                         <option value="${o.docID}">${o.fullName}</option>
                                                     </c:forEach>
@@ -151,19 +145,15 @@
                                                     From: <input class="form-control" type="date" id='datepicker' name='date' onchange="getSlotsByDate(this, '${o.docID}')">
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="form-group">
-                                                        <label>Select Slots:</label><br>
-                                                        <div class="button-checkbox-group">
-                                                            <c:forEach items="${slotTimes}" var="o">
-                                                                <input type="checkbox" id="slot_${o.slotID}" name="slots" value="${o.slotID}" onchange="changeButtonColor(this)">
-                                                                <label for="slot_${o.slotID}" class="button-checkbox">${o.timeSlot}</label>
-                                                            </c:forEach>
-
-                                                        </div>
+                                                    <label>Select Slots:</label><br>
+                                                    <div class="button-checkbox-group">
+                                                        <c:forEach items="${slotTimes}" var="o">
+                                                            <input type="checkbox" id="${o.slotID}" name="slots" value="${o.slotID}" onchange="changeCheckboxColor(this)">
+                                                            <label for="${o.slotID}" class="button-checkbox">${o.timeSlot}</label>
+                                                        </c:forEach>
                                                     </div>
-
                                                 </div>
-                                            </div>
+                                            </div><button type="submit" class="btn btn-primary btn-sm">Save</button>
                                         </form>
                                     </div>
                                 </div>
@@ -214,27 +204,33 @@
         </script>
 
         <script>
-            // Hàm xử lý khi thay đổi ngày
-            function getSlotsByDate(input, docID) {
-                                    var selectedDate = input.value;
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open('POST', 'GetSlotsByDate', true);
-                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                    xhr.onreadystatechange = function () {
-                                        if (xhr.readyState === 4 && xhr.status === 200) {
-                                            var slots = JSON.parse(xhr.responseText); // Parse JSON response
-                                            var slotsHtml = ""; // Biến để lưu HTML cho slots
-                                            // Duyệt qua danh sách slots và tạo HTML tương ứng
-                                            for (var i = 0; i < slots.length; i++) {
-                                                slotsHtml = lots[i].slotID ;
-                                            }
-                                            markCheckboxBySlotIDs(slotsHtml);
-                                        }
-                                    };
-                                    event.preventDefault();
-                                    xhr.send('selectedDate=' + selectedDate + '&docID=' + docID);
-                                }
-
+            function getSlotsByDate(input) {
+                var selectedDate = input.value;
+                var docID = document.getElementById("doctor").value; // Lấy giá trị docID từ dropdown
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'GetSlotsByDate', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var slots = JSON.parse(xhr.responseText);
+                        var slotIDs = slots.map(function (slot) {
+                            return slot.slotID;
+                        });
+                        uncheckAllCheckboxes(); // Xóa các checkbox đã chọn từ trước
+                        markCheckboxBySlotIDs(slotIDs);
+                    }
+                };
+                xhr.send('selectedDate=' + selectedDate + '&docID=' + docID);
+            }
+            function uncheckAllCheckboxes() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.checked = false;
+                    changeCheckboxColor(checkbox); // Cập nhật màu sắc của checkbox
+                });
+            }
+        </script>
+        <script>
             function markCheckboxBySlotIDs(slotIDs) {
                 // Lặp qua danh sách slot IDs và đánh dấu các checkbox tương ứng
                 slotIDs.forEach(function (slotID) {
@@ -245,13 +241,6 @@
                     }
                 });
             }
-            window.onload = function () {
-                var selectedDateInput = document.querySelector('input[name="date"]');
-                var selectedDate = selectedDateInput.value;
-                var docID = document.getElementById('doctor').value; // Assume doctor select box exists
-                getSlotsByDate(selectedDateInput, docID);
-            };
-
         </script>
         <script src="dash/assets/js/core/popper.min.js"></script>
         <script src="dash/assets/js/core/bootstrap.min.js"></script>

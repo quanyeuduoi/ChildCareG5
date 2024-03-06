@@ -19,6 +19,7 @@ public class DoctorSchedule {
     private String doctorAvatar;
     private String department;
     private String slotTime;
+    private int reservationID;
     
     public DoctorSchedule() {
     }
@@ -27,7 +28,13 @@ public class DoctorSchedule {
         this.slotTime = slotTime;
     }
 
-    
+    public DoctorSchedule(int docID, Date date, int slot, int reservationID) {
+        this.docID = docID;
+        this.date = date;
+        this.slot = slot;
+        this.reservationID = reservationID;
+    }
+        
     public DoctorSchedule(int docID, String doctorName, Date date, int slot, int age, String doctorAvatar, String department) {
         this.docID = docID;
         this.doctorName = doctorName;
@@ -36,6 +43,14 @@ public class DoctorSchedule {
         this.age = age;
         this.doctorAvatar = doctorAvatar;
         this.department = department;
+    }
+
+    public int getReservationID() {
+        return reservationID;
+    }
+
+    public void setReservationID(int reservationID) {
+        this.reservationID = reservationID;
     }
 
     public String getSlotTime() {
